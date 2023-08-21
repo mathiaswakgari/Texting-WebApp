@@ -7,38 +7,75 @@ import {
   InputGroup,
   InputLeftElement,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import { z } from "zod";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
+import { FieldValues, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-// const schema = z.object({
-//     username:z.string().min(3, {message: "Username must be atleast 3 characters long"}).max(15, {message})
-// })
+const schema = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Username must be atleast 3 characters long" })
+    .max(15, { message: "Username must be atmost 15 characters long" }),
+  password: z.string().min(8, {
+    message: "Password must be atleast 8 characters long",
+  }),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+  const onSubmit = (data: FieldValues) => console.log(data);
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
         <Box>
-          <FormLabel>Username</FormLabel>
+          <FormLabel htmlFor="username">Username</FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineUser />
             </InputLeftElement>
-            <Input type="text" placeholder="Enter your username" />
+            <Input
+              {...register("username")}
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+            />
           </InputGroup>
+          {errors?.username && (
+            <Text color={"tomato"}>{errors.username.message}</Text>
+          )}
         </Box>
         <Box>
-          <FormLabel>Password</FormLabel>
+          <FormLabel htmlFor="password">Password</FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineLock />
             </InputLeftElement>
-            <Input type="password" placeholder="Enter your password here" />
+            <Input
+              {...register("password")}
+              id="password"
+              type="password"
+              placeholder="Enter your password here"
+            />
           </InputGroup>
+          {errors?.password && (
+            <Text color={"tomato"}>{errors.password.message}</Text>
+          )}
         </Box>
         <Box>
-          <Button colorScheme="blue">Login</Button>
+          <Button type="submit" colorScheme="blue">
+            Login
+          </Button>
         </Box>
       </VStack>
     </form>
