@@ -3,7 +3,7 @@ import UserCard from "./UserCard";
 
 const SideBar = () => {
   return (
-    <Box height={"calc(100vh - 50px )"}>
+    <Box minHeight={"calc(100vh - 50px )"} bg={"gray.600"}>
       <VStack w="full" alignItems={"start"}>
         <Box w={"96"}>
           <Input
@@ -15,6 +15,9 @@ const SideBar = () => {
           />
         </Box>
         <VStack>
+          <UserCard />
+          <UserCard />
+          <UserCard />
           <UserCard />
           <UserCard />
           <UserCard />

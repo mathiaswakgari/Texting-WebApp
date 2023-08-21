@@ -2,13 +2,13 @@ import { Avatar, Box, HStack, VStack, Text } from "@chakra-ui/react";
 
 const UserCard = () => {
   return (
-    <HStack w={"96"}>
+    <HStack w={"96"} h={"70px"}>
       <Box pl={1}>
         <Avatar src="" name="Mathias Wakgari"></Avatar>
       </Box>
-      <VStack ml={2}>
-        <Text textAlign={"start"}>Tyler</Text>
-        <Text textAlign={"start"}>message.</Text>
+      <VStack ml={2} w={"full"} alignItems={"start"}>
+        <Text>Tyler</Text>
+        <Text>message.</Text>
       </VStack>
     </HStack>
   );

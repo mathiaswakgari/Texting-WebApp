@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
+import ChatPanel from "./ChatPanel";
 
 const Home = () => {
   return (
@@ -15,10 +16,10 @@ const Home = () => {
       <GridItem px="2" area={"navbar"}>
         <NavBar />
       </GridItem>
-      <GridItem pl="2" bg="blue.300" area={"chatpanel"}>
-        chatPanel
+      <GridItem bg="blue.300" area={"chatpanel"}>
+        <ChatPanel />
       </GridItem>
-      <GridItem pl="2" bg="red.300" area={"sidebar"}>
+      <GridItem area={"sidebar"}>
         <SideBar />
       </GridItem>
     </Grid>
