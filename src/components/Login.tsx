@@ -1,4 +1,5 @@
 import { Box, Heading, VStack } from "@chakra-ui/react";
+import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
@@ -10,9 +11,10 @@ const Login = () => {
         width={"100%"}
         height={"100%"}
       >
-        <Box height={"700px"} width={"500px"} bg={"whiteAlpha.300"}>
+        <Box height={"700px"} width={"500px"} bg={"white"}>
           <VStack>
             <Heading>Login</Heading>
+            <LoginForm />
           </VStack>
         </Box>
       </VStack>
