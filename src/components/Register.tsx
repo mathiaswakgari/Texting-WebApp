@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
-        <Box height={"600px"} width={"500px"} bg={"white"} borderRadius={10}>
+        <Box minHeight={"600px"} width={"500px"} bg={"white"} borderRadius={10}>
           <VStack
             height={"full"}
             width={"full"}

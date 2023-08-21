@@ -7,9 +7,15 @@ import {
   InputLeftElement,
   VStack,
   Text,
+  HStack,
 } from "@chakra-ui/react";
 import { z } from "zod";
-import { AiOutlineUser, AiOutlineLock, AiOutlineMail } from "react-icons/ai";
+import {
+  AiOutlineUser,
+  AiOutlineLock,
+  AiOutlineMail,
+  AiOutlineFileImage,
+} from "react-icons/ai";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -88,6 +94,15 @@ const RegisterForm = () => {
           {errors?.password && (
             <Text color={"tomato"}>{errors.password.message}</Text>
           )}
+        </Box>
+        <Box alignSelf={"start"}>
+          <FormLabel htmlFor="file" cursor={"pointer"}>
+            <HStack>
+              <AiOutlineFileImage fontSize={"30px"} />
+              <Text fontWeight={"medium"}>Choose a Profile Picture</Text>
+            </HStack>
+          </FormLabel>
+          <Input display={"none"} type="file" id="file" />
         </Box>
         <Box mt={5}>
           <Button type="submit" colorScheme="green" w={"96"}>
