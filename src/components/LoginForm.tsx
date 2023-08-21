@@ -17,8 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({
   username: z
     .string()
-    .min(3, { message: "Username must be atleast 3 characters long" })
-    .max(15, { message: "Username must be atmost 15 characters long" }),
+    .min(3, { message: "Username must be atleast 3 characters long." })
+    .max(15, { message: "Username must be atmost 15 characters long." }),
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long",
   }),
@@ -38,7 +38,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
-        <Box>
+        <Box w={"96"}>
           <FormLabel htmlFor="username">Username</FormLabel>
           <InputGroup>
             <InputLeftElement>
@@ -55,7 +55,7 @@ const LoginForm = () => {
             <Text color={"tomato"}>{errors.username.message}</Text>
           )}
         </Box>
-        <Box>
+        <Box w={"96"}>
           <FormLabel htmlFor="password">Password</FormLabel>
           <InputGroup>
             <InputLeftElement>
@@ -72,8 +72,8 @@ const LoginForm = () => {
             <Text color={"tomato"}>{errors.password.message}</Text>
           )}
         </Box>
-        <Box>
-          <Button type="submit" colorScheme="blue">
+        <Box mt={5}>
+          <Button type="submit" colorScheme="green" w={"96"}>
             Login
           </Button>
         </Box>
