@@ -16,7 +16,7 @@ const Home = () => {
       <GridItem px="2" area={"navbar"}>
         <NavBar />
       </GridItem>
-      <GridItem bg="blue.300" area={"chatpanel"}>
+      <GridItem area={"chatpanel"}>
         <ChatPanel />
       </GridItem>
       <GridItem area={"sidebar"}>
