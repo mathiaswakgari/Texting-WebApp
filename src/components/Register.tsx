@@ -11,7 +11,7 @@ export interface User {
   fullname: string;
   email: string;
   password: string;
-  file?: File;
+  file?: any;
 }
 
 const registerUser = async (registerInfo: User) => {
@@ -21,9 +21,9 @@ const registerUser = async (registerInfo: User) => {
       registerInfo.email,
       registerInfo.password
     );
-    const navigate = useNavigate();
-    const storageRef = ref(storage, `${registerInfo.fullname}.jpg`);
-    const uploadTask = uploadBytesResumable(storageRef, registerInfo.file!);
+
+    const storageRef = ref(storage, registerInfo.fullname);
+    const uploadTask = uploadBytesResumable(storageRef, registerInfo.file[0]);
 
     uploadTask.on(
       "state_changed",
@@ -44,7 +44,6 @@ const registerUser = async (registerInfo: User) => {
             uid: res.user.uid,
           });
           await setDoc(doc(firestore, "chats", res.user.uid), {});
-          navigate("/");
         });
       }
     );
@@ -53,6 +52,7 @@ const registerUser = async (registerInfo: User) => {
 
 const Register = () => {
   const [registerInfo, setRegisterInfo] = useState<User>({} as User);
+  const navigate = useNavigate();
 
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
@@ -70,7 +70,7 @@ const Register = () => {
             <RegisterForm
               onSubmit={(data) => {
                 setRegisterInfo(data);
-                registerUser(registerInfo);
+                registerUser(registerInfo).then(() => navigate("/"));
               }}
             />
             <Box>
