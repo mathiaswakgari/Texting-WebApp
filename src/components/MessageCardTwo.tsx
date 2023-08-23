@@ -10,7 +10,6 @@ const MessageCardTwo = () => {
         borderRadius={"10px 0px 10px 10px"}
         ml={2}
         w={"full"}
-        alignItems={"start"}
       >
         <Text>message.messa message.messagee</Text>
       </Box>

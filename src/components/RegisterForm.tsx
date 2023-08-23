@@ -18,6 +18,11 @@ import {
 } from "react-icons/ai";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "./Register";
+
+interface Props {
+  onSubmit: (data: User) => void;
+}
 
 const schema = z.object({
   fullname: z
@@ -28,11 +33,12 @@ const schema = z.object({
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long",
   }),
+  file: z.any().refine((files) => files?.length == 1, "File is required"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
@@ -40,7 +46,6 @@ const RegisterForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  const onSubmit = (data: FieldValues) => console.log(data);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
@@ -102,7 +107,10 @@ const RegisterForm = () => {
               <Text fontWeight={"medium"}>Choose a Profile Picture</Text>
             </HStack>
           </FormLabel>
-          <Input display={"none"} type="file" id="file" />
+          <Input {...register("file")} display={"none"} type="file" id="file" />
+          {errors?.file && (
+            <Text color={"tomato"}>{errors?.file?.message?.toString()}</Text>
+          )}
         </Box>
         <Box mt={5}>
           <Button type="submit" colorScheme="green" w={"96"}>
