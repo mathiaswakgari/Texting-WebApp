@@ -1,15 +1,14 @@
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase";
-import React from "react";
 
 type Props = {
   children: ReactNode;
 };
 
-export const AuthContext = React.createContext<User | null>(null);
+export const AuthContext = createContext<User>({} as User);
 export const AuthProvider = ({ children }: Props) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>({} as User);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -17,10 +16,10 @@ export const AuthProvider = ({ children }: Props) => {
       setCurrentUser(currentUser);
     });
 
-    return () => controller.abort();
+    // return () => controller.abort();
   }, []);
 
   return (
-    <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={currentUser!}>{children}</AuthContext.Provider>
   );
 };

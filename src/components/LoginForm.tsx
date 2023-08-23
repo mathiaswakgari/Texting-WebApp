@@ -13,20 +13,23 @@ import { z } from "zod";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "./Login";
 
 const schema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be atleast 3 characters long." })
-    .max(15, { message: "Username must be atmost 15 characters long." }),
+  email: z.string().email({ message: "Invalid Email type." }),
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long",
   }),
 });
 
+interface Props {
+  onChange: (data: User) => void;
+  onSubmit: (data: User) => void;
+}
+
 type FormData = z.infer<typeof schema>;
 
-const LoginForm = () => {
+const LoginForm = ({ onSubmit, onChange }: Props) => {
   const {
     register,
     handleSubmit,
@@ -34,25 +37,24 @@ const LoginForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  const onSubmit = (data: FieldValues) => console.log(data);
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} onChange={handleSubmit(onChange)}>
       <VStack>
         <Box w={"96"}>
-          <FormLabel htmlFor="username">Username</FormLabel>
+          <FormLabel htmlFor="email">Email</FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineUser />
             </InputLeftElement>
             <Input
-              {...register("username")}
-              id="username"
-              type="text"
-              placeholder="Enter your username"
+              {...register("email")}
+              id="email"
+              type="email"
+              placeholder="Enter your email"
             />
           </InputGroup>
-          {errors?.username && (
-            <Text color={"tomato"}>{errors.username.message}</Text>
+          {errors?.email && (
+            <Text color={"tomato"}>{errors.email.message}</Text>
           )}
         </Box>
         <Box w={"96"}>

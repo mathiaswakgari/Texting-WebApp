@@ -16,6 +16,7 @@ function App() {
 
   const ProtectedRoute = ({ children }: Props) => {
     if (!currentUser) return <Navigate to={"/login"} />;
+    return children;
   };
 
   return (
