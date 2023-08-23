@@ -33,7 +33,9 @@ const schema = z.object({
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long",
   }),
-  file: z.any().refine((files) => files?.length == 1, "File is required"),
+  file: z
+    .any()
+    .refine((files) => files?.length == 1, "Profile picture is required"),
 });
 
 type FormData = z.infer<typeof schema>;

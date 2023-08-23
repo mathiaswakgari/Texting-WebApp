@@ -1,21 +1,18 @@
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "texting-web-app.firebaseapp.com",
-  projectId: "texting-web-app",
-  storageBucket: "texting-web-app.appspot.com",
-  messagingSenderId: "182255589041",
-  appId: "1:182255589041:web:efa33268ccae1b3519b490",
-};
 
+  authDomain: "react-chat-app-a6caf.firebaseapp.com",
+  projectId: "react-chat-app-a6caf",
+  storageBucket: "react-chat-app-a6caf.appspot.com",
+  messagingSenderId: "676111933781",
+  appId: "1:676111933781:web:789591216478e06bcb0fdc",
+};
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const createUser = createUserWithEmailAndPassword;
 export const storage = getStorage();
+export const firestore = getFirestore();
