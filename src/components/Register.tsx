@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
   fullname: string;
@@ -20,7 +21,7 @@ const registerUser = async (registerInfo: User) => {
       registerInfo.email,
       registerInfo.password
     );
-
+    const navigate = useNavigate();
     const storageRef = ref(storage, `${registerInfo.fullname}.jpg`);
     const uploadTask = uploadBytesResumable(storageRef, registerInfo.file!);
 
@@ -36,12 +37,14 @@ const registerUser = async (registerInfo: User) => {
             displayName: registerInfo.fullname,
             photoURL: downloadURL,
           });
-          await setDoc(doc(firestore, "users", "res.user.uid"), {
+          await setDoc(doc(firestore, "users", res.user.uid), {
             fullName: registerInfo.fullname,
             email: registerInfo.email,
             photoURL: downloadURL,
             uid: res.user.uid,
           });
+          await setDoc(doc(firestore, "chats", res.user.uid), {});
+          navigate("/");
         });
       }
     );

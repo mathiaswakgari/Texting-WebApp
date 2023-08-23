@@ -1,4 +1,6 @@
 import { Avatar, Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 
 const NavBar = () => {
   return (
@@ -10,7 +12,12 @@ const NavBar = () => {
             <Avatar size={"sm"} name="Mathias Wakgari" src={""}></Avatar>
             <Text>Mathias Wakgari</Text>
           </HStack>
-          <Button size={"xs"} borderRadius={0} colorScheme="green">
+          <Button
+            onClick={() => signOut(auth)}
+            size={"xs"}
+            borderRadius={0}
+            colorScheme="green"
+          >
             Signout
           </Button>
         </HStack>
