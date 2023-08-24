@@ -18,6 +18,7 @@ import { firestore } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import SearchCard from "./SearchCard";
+import ChatList from "./ChatList";
 
 export interface User {
   fullName: string;
@@ -109,17 +110,7 @@ const SideBar = () => {
           </Box>
         )}
 
-        <VStack>
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-        </VStack>
+        <ChatList />
       </VStack>
     </Box>
   );

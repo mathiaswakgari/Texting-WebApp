@@ -5,6 +5,7 @@ import { BsThreeDots } from "react-icons/bs";
 import ChatInput from "./ChatInput";
 import MessageCard from "./MessageCard";
 import MessageCardTwo from "./MessageCardTwo";
+
 const ChatPanel = () => {
   return (
     <VStack bg={"gray.700"}>
