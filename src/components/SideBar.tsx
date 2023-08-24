@@ -2,11 +2,19 @@ import { Box, Input, VStack } from "@chakra-ui/react";
 import UserCard from "./UserCard";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-import { User } from "./Register";
+
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import SearchCard from "./SearchCard";
+
+export interface User {
+  fullName: string;
+  email: string;
+  uid: string;
+  photoURL: string;
+}
 
 const startsWithHelper = (text: string) => {
   var strlength = text.length;
@@ -34,7 +42,7 @@ const SideBar = () => {
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        setSearchResult([...searchResult, doc.data() as User]);
+        setSearchResult([doc.data() as User]);
       });
     } catch (error) {
       console.log(error);
@@ -50,6 +58,11 @@ const SideBar = () => {
             handelSearch();
           }}
         />
+        <Box w={"full"}>
+          {searchResult &&
+            searchResult.map((user) => <SearchCard user={user} />)}
+          <hr></hr>
+        </Box>
         <VStack>
           <UserCard />
           <UserCard />
