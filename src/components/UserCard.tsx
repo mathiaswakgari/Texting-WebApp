@@ -1,24 +1,22 @@
 import { Avatar, Box, HStack, VStack, Text } from "@chakra-ui/react";
 import { ChatInfo } from "./ChatList";
+import { User } from "./SideBar";
 
 interface Props {
   data: ChatInfo;
+  onClick: (user: User) => void;
 }
 
-const UserCard = ({ data }: Props) => {
-  console.log(data);
-  const {
-    date,
-    userInfo: { fullName, photoURL, lastMessage },
-  } = data;
+const UserCard = ({ data, onClick }: Props) => {
+  const { date, userInfo } = data;
   return (
-    <HStack w={"96"} h={"70px"}>
+    <HStack w={"96"} h={"70px"} onClick={() => onClick(userInfo)}>
       <Box pl={1}>
-        <Avatar src={photoURL} name={fullName}></Avatar>
+        <Avatar src={userInfo.photoURL} name={userInfo.fullName}></Avatar>
       </Box>
       <VStack ml={2} w={"full"} alignItems={"start"}>
-        <Text>{fullName}</Text>
-        <Text>{lastMessage && lastMessage}</Text>
+        <Text>{userInfo.fullName}</Text>
+        <Text>{userInfo.lastMessage && userInfo.lastMessage}</Text>
       </VStack>
     </HStack>
   );

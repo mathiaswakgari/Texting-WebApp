@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Timestamp, doc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../services/firebase";
 import { User } from "./SideBar";
+import { ChatContext } from "../context/ChatContext";
 
 export interface ChatInfo {
   date: Timestamp;
@@ -13,7 +14,12 @@ export interface ChatInfo {
 
 const ChatList = () => {
   const currentUser = useContext(AuthContext);
+  const { data, dispatch } = useContext(ChatContext);
   const [chats, setChats] = useState<any>();
+
+  const handleSelect = (user: User) => {
+    dispatch({ type: "CHANGE_USER", payload: user });
+  };
 
   useEffect(() => {
     if (currentUser.uid) {
@@ -23,13 +29,19 @@ const ChatList = () => {
     }
   }, [currentUser.uid]);
 
+  console.log(data);
+
   return (
     <VStack>
       {!chats ? (
         <Spinner></Spinner>
       ) : (
         Object.entries(chats).map((chat) => (
-          <UserCard data={chat[1] as ChatInfo} key={chat[0]}></UserCard>
+          <UserCard
+            onClick={handleSelect}
+            data={chat[1] as ChatInfo}
+            key={chat[0]}
+          ></UserCard>
         ))
       )}
     </VStack>

@@ -1,12 +1,30 @@
-import { Box, VStack, Text, HStack } from "@chakra-ui/react";
+import { Box, VStack, Text, HStack, Spinner } from "@chakra-ui/react";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
-
+import { useContext, useEffect, useState } from "react";
 import ChatInput from "./ChatInput";
 import MessageCard from "./MessageCard";
 import MessageCardTwo from "./MessageCardTwo";
+import { ChatContext } from "../context/ChatContext";
+import { doc, onSnapshot } from "firebase/firestore";
+import { firestore } from "../services/firebase";
 
 const ChatPanel = () => {
+  const {
+    data: {
+      chatId,
+      userInfo: { fullName, photoURL, uid },
+    },
+  } = useContext(ChatContext);
+
+  const [messages, setMessages] = useState<any>([]);
+
+  useEffect(() => {
+    onSnapshot(doc(firestore, "chats", chatId), (doc) => {
+      doc.exists() && setMessages(doc.data().messages as []);
+    });
+  }, [chatId]);
+  console.log(messages);
   return (
     <VStack bg={"gray.700"}>
       <HStack
@@ -15,7 +33,7 @@ const ChatPanel = () => {
         h={"50px"}
         w={"full"}
       >
-        <Text>Tyler</Text>
+        <Text>{fullName}</Text>
         <HStack>
           <AiOutlineVideoCameraAdd />
           <BsThreeDots />
@@ -26,20 +44,13 @@ const ChatPanel = () => {
         height={"calc(100vh - 64px - 50px)"}
         width={"full"}
       >
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCardTwo />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
-        <MessageCard />
+        {messages ? (
+          <Spinner></Spinner>
+        ) : (
+          messages.map((message: any) => (
+            <MessageCard key={message} message={message} />
+          ))
+        )}
       </Box>
       <Box w={"full"} h={"full"} bg={"red"}>
         <ChatInput />

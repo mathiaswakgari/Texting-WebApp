@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { app } from "./services/firebase.ts";
 import { AuthProvider } from "./context/AuthContext.tsx";
+import { ChatProvider } from "./context/ChatContext.tsx";
 
 const theme = extendTheme({
   fonts: {
@@ -15,10 +16,12 @@ const theme = extendTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <AuthProvider>
-    <React.StrictMode>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </React.StrictMode>
+    <ChatProvider>
+      <React.StrictMode>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </React.StrictMode>
+    </ChatProvider>
   </AuthProvider>
 );
