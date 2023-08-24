@@ -22,7 +22,7 @@ const registerUser = async (registerInfo: User) => {
       registerInfo.password
     );
 
-    const storageRef = ref(storage, registerInfo.fullname);
+    const storageRef = ref(storage, res.user.uid);
     const uploadTask = uploadBytesResumable(storageRef, registerInfo.file[0]);
 
     uploadTask.on(
@@ -43,7 +43,7 @@ const registerUser = async (registerInfo: User) => {
             photoURL: downloadURL,
             uid: res.user.uid,
           });
-          await setDoc(doc(firestore, "chats", res.user.uid), {});
+          await setDoc(doc(firestore, "userChats", res.user.uid), {});
         });
       }
     );

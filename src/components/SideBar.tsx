@@ -3,7 +3,17 @@ import UserCard from "./UserCard";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { firestore } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
@@ -30,7 +40,35 @@ const SideBar = () => {
   const [searchResult, setSearchResult] = useState<Array<User>>([]);
   const currentUser = useContext(AuthContext);
 
-  const handelSearch = async () => {
+  const handleSearchCardClick = async (user: User) => {
+    const combinedId = `${currentUser.uid}_${user.uid}`;
+    try {
+      const res = await getDoc(doc(firestore, "chats", combinedId));
+      if (!res.exists()) {
+        await setDoc(doc(firestore, "chats", combinedId), { messages: [] });
+
+        await updateDoc(doc(firestore, "userChats", currentUser.uid), {
+          [`${combinedId}.userInfo`]: {
+            uid: user.uid,
+            fullName: user.fullName,
+            photoURL: user.photoURL,
+          },
+          [`${combinedId}.date`]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(firestore, "userChats", user.uid), {
+          [`${combinedId}.userInfo`]: {
+            uid: currentUser.uid,
+            fullName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+          },
+          [`${combinedId}.date`]: serverTimestamp(),
+        });
+      }
+    } catch (e) {}
+  };
+
+  const handleSearch = async () => {
     const endCode = startsWithHelper(searchLabel);
 
     const q = query(
@@ -55,14 +93,22 @@ const SideBar = () => {
         <SearchBar
           onChange={(label) => {
             setSearchLabel(label);
-            handelSearch();
+            handleSearch();
           }}
         />
-        <Box w={"full"}>
-          {searchResult &&
-            searchResult.map((user) => <SearchCard user={user} />)}
-          <hr></hr>
-        </Box>
+        {searchResult && (
+          <Box w={"full"}>
+            {searchResult.map((user) => (
+              <SearchCard
+                key={user.uid}
+                user={user}
+                onClick={(user) => handleSearchCardClick(user)}
+              />
+            ))}
+            {searchResult.length !== 0 && <hr></hr>}
+          </Box>
+        )}
+
         <VStack>
           <UserCard />
           <UserCard />
