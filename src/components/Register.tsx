@@ -70,7 +70,7 @@ const Register = () => {
             <RegisterForm
               onSubmit={(data) => {
                 setRegisterInfo(data);
-                registerUser(registerInfo).then(() => navigate("/"));
+                registerUser(registerInfo);
               }}
             />
             <Box>
