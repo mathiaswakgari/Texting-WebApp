@@ -4,7 +4,12 @@ import UserCard from "./UserCard";
 import { AuthContext } from "../context/AuthContext";
 import { Timestamp, doc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../services/firebase";
-import { User } from "./Register";
+import { User } from "./SideBar";
+
+export interface ChatInfo {
+  date: Timestamp;
+  userInfo: User;
+}
 
 const ChatList = () => {
   const currentUser = useContext(AuthContext);
@@ -23,7 +28,9 @@ const ChatList = () => {
       {!chats ? (
         <Spinner></Spinner>
       ) : (
-        Object.entries(chats).map((chat) => <UserCard key={chat[0]}></UserCard>)
+        Object.entries(chats).map((chat) => (
+          <UserCard data={chat[1] as ChatInfo} key={chat[0]}></UserCard>
+        ))
       )}
     </VStack>
   );

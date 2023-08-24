@@ -25,6 +25,7 @@ export interface User {
   email: string;
   uid: string;
   photoURL: string;
+  lastMessage?: string;
 }
 
 const startsWithHelper = (text: string) => {
