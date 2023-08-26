@@ -29,8 +29,6 @@ const ChatList = () => {
     }
   }, [currentUser.uid]);
 
-  console.log(data);
-
   return (
     <VStack>
       {!chats ? (

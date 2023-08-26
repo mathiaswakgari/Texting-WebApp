@@ -1,6 +1,10 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 
-const MessageCard = () => {
+interface Props {
+  message: any;
+}
+
+const MessageCard = ({ message }: Props) => {
   return (
     <HStack w={"full"} minH={"70px"} marginY={3}>
       <Box pl={1}>

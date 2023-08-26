@@ -20,11 +20,13 @@ const ChatPanel = () => {
   const [messages, setMessages] = useState<any>([]);
 
   useEffect(() => {
-    onSnapshot(doc(firestore, "chats", chatId), (doc) => {
-      doc.exists() && setMessages(doc.data().messages as []);
-    });
+    if (chatId) {
+      onSnapshot(doc(firestore, "chats", chatId), (doc) => {
+        doc.exists() && setMessages(doc.data().messages as []);
+      });
+    }
   }, [chatId]);
-  console.log(messages);
+
   return (
     <VStack bg={"gray.700"}>
       <HStack
@@ -48,7 +50,7 @@ const ChatPanel = () => {
           <Spinner></Spinner>
         ) : (
           messages.map((message: any) => (
-            <MessageCard key={message} message={message} />
+            <MessageCard key={message.id} message={message} />
           ))
         )}
       </Box>
