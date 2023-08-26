@@ -6,10 +6,15 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-
 import { BiImage } from "react-icons/bi";
 
-const ChatInput = () => {
+interface Props {
+  onFileChange: (file: File) => void;
+  onMessageChange: (message: string) => void;
+  onSend: () => void;
+}
+
+const ChatInput = ({ onFileChange, onMessageChange, onSend }: Props) => {
   return (
     <InputGroup size={"lg"} bg={"white"}>
       <Input
@@ -18,6 +23,7 @@ const ChatInput = () => {
         borderRadius={0}
         w={"calc(100% - 150px)"}
         border={"none"}
+        onChange={(e) => onMessageChange(e.currentTarget.value)}
       />
       <InputRightElement w={"150px"}>
         <HStack
@@ -27,7 +33,12 @@ const ChatInput = () => {
           alignContent={"center"}
           alignItems={"center"}
         >
-          <Input type="file" id="file" display={"none"}></Input>
+          <Input
+            type="file"
+            id="file"
+            display={"none"}
+            onChange={(e) => onFileChange(e.currentTarget.files![0])}
+          ></Input>
           <FormLabel htmlFor="file">
             <BiImage
               fontSize={"30px"}
@@ -36,7 +47,13 @@ const ChatInput = () => {
               }}
             />
           </FormLabel>
-          <Button colorScheme={"green"} borderRadius={0} mr={2} size={"sm"}>
+          <Button
+            colorScheme={"green"}
+            borderRadius={0}
+            mr={2}
+            size={"sm"}
+            onClick={onSend}
+          >
             Send
           </Button>
         </HStack>
