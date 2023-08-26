@@ -34,13 +34,15 @@ const ChatList = () => {
       {!chats ? (
         <Spinner></Spinner>
       ) : (
-        Object.entries(chats).map((chat) => (
-          <UserCard
-            onClick={handleSelect}
-            data={chat[1] as ChatInfo}
-            key={chat[0]}
-          ></UserCard>
-        ))
+        Object.entries(chats)
+          .sort((a, b) => a[1]["date"] - b[1]["date"])
+          .map((chat) => (
+            <UserCard
+              onClick={handleSelect}
+              data={chat[1] as ChatInfo}
+              key={chat[0]}
+            ></UserCard>
+          ))
       )}
     </VStack>
   );

@@ -12,11 +12,20 @@ import {
   arrayUnion,
   doc,
   onSnapshot,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
 import { firestore, storage } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
+export interface Message {
+  date: Timestamp;
+  text: string;
+  senderId: string;
+  id: string;
+  fileLink?: string;
+}
 
 const ChatPanel = () => {
   const {
@@ -49,7 +58,7 @@ const ChatPanel = () => {
                 text: message,
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
-                file: downloadURL,
+                fileLink: downloadURL,
               }),
             });
           });
@@ -63,6 +72,18 @@ const ChatPanel = () => {
           senderId: currentUser.uid,
           date: Timestamp.now(),
         }),
+      });
+      await updateDoc(doc(firestore, "userChats", currentUser.uid), {
+        [`${chatId}.lastMessage`]: {
+          message,
+        },
+        [`${chatId}.date`]: serverTimestamp(),
+      });
+      await updateDoc(doc(firestore, "userChats", uid), {
+        [`${chatId}.lastMessage`]: {
+          message,
+        },
+        [`${chatId}.date`]: serverTimestamp(),
       });
     }
   };
@@ -94,7 +115,7 @@ const ChatPanel = () => {
         height={"calc(100vh - 64px - 50px)"}
         width={"full"}
       >
-        {messages ? (
+        {messages === undefined ? (
           <Spinner></Spinner>
         ) : (
           messages.map((message: any) => (

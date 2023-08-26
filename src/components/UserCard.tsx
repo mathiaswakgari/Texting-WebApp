@@ -9,6 +9,7 @@ interface Props {
 
 const UserCard = ({ data, onClick }: Props) => {
   const { date, userInfo } = data;
+
   return (
     <HStack w={"96"} h={"70px"} onClick={() => onClick(userInfo)}>
       <Box pl={1}>

@@ -1,7 +1,8 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { Message } from "./ChatPanel";
 
 interface Props {
-  message: any;
+  message: Message;
 }
 
 const MessageCard = ({ message }: Props) => {
@@ -18,8 +19,12 @@ const MessageCard = ({ message }: Props) => {
         ml={2}
         w={"full"}
         alignItems={"start"}
+        display={"flex"}
+        flexDirection={"column"}
       >
-        <Text>message.messa message.messagee</Text>
+        <Text width={"96%"} alignSelf={"center"}>
+          {message.text}
+        </Text>
       </Box>
     </HStack>
   );
