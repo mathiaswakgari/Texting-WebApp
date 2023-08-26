@@ -1,13 +1,19 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { Message } from "./ChatPanel";
+import { useEffect, useRef } from "react";
 
 interface Props {
   message: Message;
 }
 
 const MessageCard = ({ message }: Props) => {
+  const ref = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
   return (
-    <HStack w={"full"} minH={"70px"} marginY={3}>
+    <HStack ref={ref} w={"full"} minH={"70px"} marginY={3}>
       <Box pl={1}>
         <Avatar src="" name="Mathias Wakgari"></Avatar>
       </Box>
