@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm";
 import { useState } from "react";
 import { auth, login } from "../services/firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
 
 export interface User {
   email: string;
@@ -12,13 +13,27 @@ export interface User {
 const Login = () => {
   const navigate = useNavigate();
   const [isLogging, setIsLogging] = useState(false);
+  const [error, setError] = useState("");
 
   const LoginUser = async (loginCredential: User) => {
     setIsLogging(true);
     if (Object.keys(loginCredential).length !== 0) {
       await login(auth, loginCredential.email, loginCredential.password)
-        .then(() => setIsLogging(true))
-        .catch((error) => {});
+        .then(() => {
+          navigate("/");
+          setIsLogging(false);
+        })
+        .catch((error: FirebaseError) => {
+          console.log(error.code);
+          if (error.code == "auth/wrong-password")
+            setError("Incorrect email or password. Try again");
+          else if (error.code == "auth/too-many-requests")
+            setError("Some error occurred. Please try again.");
+          else {
+            setError("An unkown error occurred. Try again");
+          }
+          setIsLogging(false);
+        });
     }
   };
 
@@ -37,14 +52,15 @@ const Login = () => {
             </Box>
             <LoginForm
               onSubmit={(data) => {
-                LoginUser(data)
-                  .then(() => {
-                    navigate("/");
-                  })
-                  .catch((error) => {});
+                LoginUser(data);
               }}
               isLogging={isLogging}
             />
+            {error && (
+              <Box borderRadius={3} bg={"tomato"} w={"96"} textAlign={"center"}>
+                <Text color={"white"}>{error}</Text>
+              </Box>
+            )}
             <Box>
               <Text>
                 Don't have an account yet?{" "}
