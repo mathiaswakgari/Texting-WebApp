@@ -91,6 +91,7 @@ const ChatPanel = () => {
   useEffect(() => {
     if (chatId) {
       onSnapshot(doc(firestore, "chats", chatId), (doc) => {
+        console.log(chatId);
         doc.exists() && setMessages(doc.data().messages as []);
       });
     }
@@ -118,9 +119,12 @@ const ChatPanel = () => {
         {messages === undefined ? (
           <Spinner></Spinner>
         ) : (
-          messages.map((message: any) => (
-            <MessageCard key={message.id} message={message} />
-          ))
+          messages.map((message: Message) => {
+            if (currentUser.uid !== message.senderId) {
+              return <MessageCard key={message.id} message={message} />;
+            }
+            return <MessageCardTwo key={message.id} message={message} />;
+          })
         )}
       </Box>
       <Box w={"full"} h={"full"} bg={"red"}>

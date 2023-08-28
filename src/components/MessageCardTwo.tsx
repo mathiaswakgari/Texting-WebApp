@@ -1,6 +1,14 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { Message } from "./ChatPanel";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
-const MessageCardTwo = () => {
+interface Props {
+  message: Message;
+}
+
+const MessageCardTwo = ({ message }: Props) => {
+  const currentUser = useContext(AuthContext);
   return (
     <HStack w={"full"} minH={"70px"} marginY={3} justifyContent={"end"}>
       <Box
@@ -11,10 +19,13 @@ const MessageCardTwo = () => {
         ml={2}
         w={"full"}
       >
-        <Text>message.messa message.messagee</Text>
+        <Text>{message.text}</Text>
       </Box>
       <Box pl={1}>
-        <Avatar src="" name="Mathias Wakgari"></Avatar>
+        <Avatar
+          src={currentUser.photoURL!}
+          name={currentUser.displayName!}
+        ></Avatar>
       </Box>
     </HStack>
   );

@@ -43,7 +43,10 @@ const SideBar = () => {
   const currentUser = useContext(AuthContext);
 
   const handleSearchCardClick = async (user: User) => {
-    const combinedId = `${currentUser.uid}_${user.uid}`;
+    const combinedId =
+      currentUser.uid > user.uid
+        ? `${currentUser.uid}_${user.uid}`
+        : `${user.uid}_${currentUser.uid}`;
     try {
       const res = await getDoc(doc(firestore, "chats", combinedId));
       if (!res.exists()) {

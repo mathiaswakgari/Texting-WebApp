@@ -1,6 +1,7 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { Message } from "./ChatPanel";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ChatContext } from "../context/ChatContext";
 
 interface Props {
   message: Message;
@@ -8,6 +9,11 @@ interface Props {
 
 const MessageCard = ({ message }: Props) => {
   const ref = useRef<null | HTMLDivElement>(null);
+  const {
+    data: {
+      userInfo: { fullName, photoURL, uid },
+    },
+  } = useContext(ChatContext);
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -15,7 +21,7 @@ const MessageCard = ({ message }: Props) => {
   return (
     <HStack ref={ref} w={"full"} minH={"70px"} marginY={3}>
       <Box pl={1}>
-        <Avatar src="" name="Mathias Wakgari"></Avatar>
+        <Avatar src={photoURL} name={fullName}></Avatar>
       </Box>
       <Box
         bg={"white"}
