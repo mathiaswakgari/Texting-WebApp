@@ -25,15 +25,16 @@ const schema = z.object({
 
 interface Props {
   onSubmit: (data: User) => void;
+  isLogging: boolean;
 }
 
 type FormData = z.infer<typeof schema>;
 
-const LoginForm = ({ onSubmit }: Props) => {
+const LoginForm = ({ onSubmit, isLogging }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -88,7 +89,12 @@ const LoginForm = ({ onSubmit }: Props) => {
           )}
         </Box>
         <Box mt={5}>
-          <Button type="submit" colorScheme="green" w={"96"}>
+          <Button
+            isLoading={isLogging}
+            type="submit"
+            colorScheme="green"
+            w={"96"}
+          >
             Login
           </Button>
         </Box>
