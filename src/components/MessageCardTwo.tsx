@@ -13,15 +13,15 @@ const MessageCardTwo = ({ message }: Props) => {
     <HStack w={"full"} minH={"70px"} marginY={3} justifyContent={"end"}>
       <Box
         bg={"white"}
-        minH={"50px"}
+        minH={"30px"}
         maxW={"96"}
         borderRadius={"10px 0px 10px 10px"}
         ml={2}
-        w={"full"}
+        maxWidth={"full"}
       >
-        <Text>{message.text}</Text>
+        <Text px={2}>{message.text}</Text>
       </Box>
-      <Box pl={1}>
+      <Box pr={1}>
         <Avatar
           src={currentUser.photoURL!}
           name={currentUser.displayName!}

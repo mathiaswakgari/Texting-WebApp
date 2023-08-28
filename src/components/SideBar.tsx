@@ -42,7 +42,6 @@ const SideBar = () => {
   const [searchResult, setSearchResult] = useState<Array<User>>([]);
   const currentUser = useContext(AuthContext);
 
-  console.log(searchLabel);
   useEffect(() => {
     const handleSearch = async () => {
       const endCode = startsWithHelper(searchLabel);
@@ -93,6 +92,7 @@ const SideBar = () => {
           [`${combinedId}.date`]: serverTimestamp(),
         });
       }
+      setSearchLabel("");
     } catch (e) {}
   };
 

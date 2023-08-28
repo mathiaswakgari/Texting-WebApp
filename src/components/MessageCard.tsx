@@ -25,18 +25,13 @@ const MessageCard = ({ message }: Props) => {
       </Box>
       <Box
         bg={"white"}
-        minH={"50px"}
+        minH={"30px"}
         maxW={"96"}
         borderRadius={"0 10px 10px 10px"}
         ml={2}
-        w={"full"}
-        alignItems={"start"}
-        display={"flex"}
-        flexDirection={"column"}
+        maxWidth={"full"}
       >
-        <Text width={"96%"} alignSelf={"center"}>
-          {message.text}
-        </Text>
+        <Text px={2}>{message.text}</Text>
       </Box>
     </HStack>
   );

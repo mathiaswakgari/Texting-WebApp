@@ -69,6 +69,7 @@ const Register = () => {
             await setDoc(doc(firestore, "userChats", res.user.uid), {});
           }
           setIsRegistering(false);
+          navigate("/login");
         })
         .catch((e: FirebaseError) => {
           setIsRegistering(false);

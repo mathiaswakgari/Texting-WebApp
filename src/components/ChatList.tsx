@@ -16,25 +16,29 @@ const ChatList = () => {
   const currentUser = useContext(AuthContext);
   const { data, dispatch } = useContext(ChatContext);
   const [chats, setChats] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelect = (user: User) => {
     dispatch({ type: "CHANGE_USER", payload: user });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     if (currentUser.uid) {
       onSnapshot(doc(firestore, "userChats", currentUser.uid), (doc) => {
         setChats(doc.data());
+        setIsLoading(false);
       });
     }
+    setIsLoading(false);
   }, [currentUser.uid]);
 
-  if (chats == undefined) return <Spinner size={"lg"}></Spinner>;
+  // if (chats == undefined) return <Text>No Chat.</Text>;
 
   return (
     <VStack justifyContent={"center"} width={"full"}>
-      {chats ? (
-        <Text>No chats.</Text>
+      {!chats ? (
+        <Spinner size={"lg"}></Spinner>
       ) : (
         Object.entries(chats)
           .sort((a, b) => a[1]["date"] - b[1]["date"])

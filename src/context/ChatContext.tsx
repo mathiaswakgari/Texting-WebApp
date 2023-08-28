@@ -36,7 +36,10 @@ export const ChatProvider = ({ children }: Props) => {
       case ActionKind.CHANGE_USER:
         return {
           userInfo: action.payload,
-          chatId: `${currentUser.uid}_${action.payload.uid}`,
+          chatId:
+            currentUser.uid > action.payload.uid
+              ? `${currentUser.uid}_${action.payload.uid}`
+              : `${action.payload.uid}_${currentUser.uid}`,
         };
       default:
         return state;

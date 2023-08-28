@@ -101,6 +101,7 @@ const ChatPanel = () => {
     <VStack bg={"gray.700"}>
       <HStack
         justifyContent={"space-between"}
+        px={2}
         bg={"gray.400"}
         h={"50px"}
         w={"full"}
