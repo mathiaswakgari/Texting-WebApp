@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export interface User {
   fullname: string;
@@ -51,7 +51,6 @@ const registerUser = async (registerInfo: User) => {
 };
 
 const Register = () => {
-  const [registerInfo, setRegisterInfo] = useState<User>({} as User);
   const navigate = useNavigate();
 
   return (
@@ -69,12 +68,13 @@ const Register = () => {
             </Box>
             <RegisterForm
               onSubmit={(data) => {
-                setRegisterInfo(data);
-                registerUser(registerInfo);
+                registerUser(data);
               }}
             />
             <Box>
-              <Text>Already have an account? Login.</Text>
+              <Text>
+                Already have an account? <Link to="/login">Login</Link>
+              </Text>
             </Box>
           </VStack>
         </Box>

@@ -19,6 +19,7 @@ import {
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "./Register";
+import { useRef, useState } from "react";
 
 interface Props {
   onSubmit: (data: User) => void;
@@ -35,7 +36,7 @@ const schema = z.object({
   }),
   file: z
     .any()
-    .refine((files) => files?.length == 1, "Profile picture is required"),
+    .refine((files) => files?.length !== 1, "Profile picture is required"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -48,6 +49,9 @@ const RegisterForm = ({ onSubmit }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const [registerForm, setRegisterForm] = useState<User>({} as User);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
@@ -62,6 +66,12 @@ const RegisterForm = ({ onSubmit }: Props) => {
               id="fullname"
               type="text"
               placeholder="Enter your name here"
+              onChange={(e) => {
+                setRegisterForm({
+                  ...registerForm,
+                  fullname: e.currentTarget.value,
+                });
+              }}
             />
           </InputGroup>
           {errors?.fullname && (
@@ -79,6 +89,12 @@ const RegisterForm = ({ onSubmit }: Props) => {
               id="email"
               type="email"
               placeholder="Enter your email here"
+              onChange={(e) =>
+                setRegisterForm({
+                  ...registerForm,
+                  email: e.currentTarget.value,
+                })
+              }
             />
           </InputGroup>
           {errors?.email && (
@@ -96,6 +112,12 @@ const RegisterForm = ({ onSubmit }: Props) => {
               id="password"
               type="password"
               placeholder="Enter your password here"
+              onChange={(e) =>
+                setRegisterForm({
+                  ...registerForm,
+                  password: e.currentTarget.value,
+                })
+              }
             />
           </InputGroup>
           {errors?.password && (
@@ -109,7 +131,18 @@ const RegisterForm = ({ onSubmit }: Props) => {
               <Text fontWeight={"medium"}>Choose a Profile Picture</Text>
             </HStack>
           </FormLabel>
-          <Input {...register("file")} display={"none"} type="file" id="file" />
+          <Input
+            {...register("file")}
+            display={"none"}
+            type="file"
+            id="file"
+            onChange={(e) =>
+              setRegisterForm({
+                ...registerForm,
+                file: e.currentTarget.files![0],
+              })
+            }
+          />
           {errors?.file && (
             <Text color={"tomato"}>{errors?.file?.message?.toString()}</Text>
           )}
