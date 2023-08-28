@@ -8,6 +8,7 @@ import {
   VStack,
   Text,
   HStack,
+  Spinner,
 } from "@chakra-ui/react";
 import { z } from "zod";
 import {
@@ -16,13 +17,14 @@ import {
   AiOutlineMail,
   AiOutlineFileImage,
 } from "react-icons/ai";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "./Register";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   onSubmit: (data: User) => void;
+  isRegistering: boolean;
 }
 
 const schema = z.object({
@@ -32,16 +34,16 @@ const schema = z.object({
     .max(30, { message: "Name must be atmost 30 characters long." }),
   email: z.string().email({ message: "Enter a valid email." }),
   password: z.string().min(8, {
-    message: "Password must be atleast 8 characters long",
+    message: "Password must be atleast 8 characters long.",
   }),
   file: z
     .any()
-    .refine((files) => files?.length !== 1, "Profile picture is required"),
+    .refine((files) => files?.length === 1, "Profile picture is required."),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const RegisterForm = ({ onSubmit }: Props) => {
+const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
   const {
     register,
     handleSubmit,
@@ -148,8 +150,13 @@ const RegisterForm = ({ onSubmit }: Props) => {
           )}
         </Box>
         <Box mt={5}>
-          <Button type="submit" colorScheme="green" w={"96"}>
-            Register
+          <Button
+            type="submit"
+            colorScheme="green"
+            w={"96"}
+            disabled={!isRegistering}
+          >
+            {isRegistering ? <Spinner></Spinner> : "Register"}
           </Button>
         </Box>
       </VStack>

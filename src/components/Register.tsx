@@ -14,44 +14,66 @@ export interface User {
   file?: any;
 }
 
-const registerUser = async (registerInfo: User) => {
-  if (Object.keys(registerInfo).length !== 0) {
-    const res = await createUser(
-      auth,
-      registerInfo.email,
-      registerInfo.password
-    );
-
-    const storageRef = ref(storage, res.user.uid);
-    const uploadTask = uploadBytesResumable(storageRef, registerInfo.file[0]);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await updateProfile(res.user, {
-            displayName: registerInfo.fullname,
-            photoURL: downloadURL,
-          });
-          await setDoc(doc(firestore, "users", res.user.uid), {
-            fullName: registerInfo.fullname,
-            email: registerInfo.email,
-            photoURL: downloadURL,
-            uid: res.user.uid,
-          });
-          await setDoc(doc(firestore, "userChats", res.user.uid), {});
-        });
-      }
-    );
-  }
-};
-
 const Register = () => {
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  const registerUser = async (registerInfo: User) => {
+    if (Object.keys(registerInfo).length !== 0) {
+      setIsRegistering(true);
+      const res = await createUser(
+        auth,
+        registerInfo.email,
+        registerInfo.password
+      );
+
+      const storageRef = ref(storage, res.user.uid);
+      const uploadTask = uploadBytesResumable(storageRef, registerInfo.file[0]);
+
+      if (registerInfo.file) {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            setError(error.message);
+            console.log(error.message);
+            setIsRegistering(false);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                await updateProfile(res.user, {
+                  displayName: registerInfo.fullname,
+                  photoURL: downloadURL,
+                });
+                await setDoc(doc(firestore, "users", res.user.uid), {
+                  fullName: registerInfo.fullname,
+                  email: registerInfo.email,
+                  photoURL: downloadURL,
+                  uid: res.user.uid,
+                });
+                await setDoc(doc(firestore, "userChats", res.user.uid), {});
+                setIsRegistering(false);
+              }
+            );
+          }
+        );
+      } else {
+        await updateProfile(res.user, {
+          displayName: registerInfo.fullname,
+        });
+        await setDoc(doc(firestore, "users", res.user.uid), {
+          fullName: registerInfo.fullname,
+          email: registerInfo.email,
+          photoURL: "",
+          uid: res.user.uid,
+        });
+        await setDoc(doc(firestore, "userChats", res.user.uid), {});
+        setIsRegistering(false);
+      }
+    }
+  };
 
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
@@ -70,10 +92,21 @@ const Register = () => {
               onSubmit={(data) => {
                 registerUser(data);
               }}
+              isRegistering={isRegistering}
             />
+            {error && (
+              <Box bg={"tomato"} w={"96"} textAlign={"center"}>
+                <Text color={"white"}>{error}</Text>
+              </Box>
+            )}
             <Box>
               <Text>
-                Already have an account? <Link to="/login">Login</Link>
+                Already have an account?{" "}
+                <Link to="/login">
+                  <Text fontWeight={"semibold"} as={"u"}>
+                    Login
+                  </Text>
+                </Link>
               </Text>
             </Box>
           </VStack>
