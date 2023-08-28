@@ -6,6 +6,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
 
 export interface User {
   fullname: string;
@@ -24,6 +25,7 @@ const Register = () => {
       setIsRegistering(true);
       await createUser(auth, registerInfo.email, registerInfo.password)
         .then(async (res) => {
+          setIsRegistering(true);
           if (Object.keys(registerInfo.file).length !== 0) {
             const storageRef = ref(storage, res.user.uid);
             const uploadTask = uploadBytesResumable(
@@ -34,8 +36,6 @@ const Register = () => {
               "state_changed",
               (snapshot) => {},
               (error) => {
-                setError(error.message);
-                console.log(error.message);
                 setIsRegistering(false);
               },
               () => {
@@ -52,8 +52,6 @@ const Register = () => {
                       uid: res.user.uid,
                     });
                     await setDoc(doc(firestore, "userChats", res.user.uid), {});
-                    setIsRegistering(false);
-                    navigate("/login");
                   }
                 );
               }
@@ -69,12 +67,12 @@ const Register = () => {
               uid: res.user.uid,
             });
             await setDoc(doc(firestore, "userChats", res.user.uid), {});
-            setIsRegistering(false);
-            navigate("/login");
           }
+          setIsRegistering(false);
         })
-        .catch((e) => {
-          console.log(e.message);
+        .catch((e: FirebaseError) => {
+          setIsRegistering(false);
+          setError("An unknown error occured. Try again");
         });
     }
   };
@@ -99,7 +97,7 @@ const Register = () => {
               isRegistering={isRegistering}
             />
             {error && (
-              <Box bg={"tomato"} w={"96"} textAlign={"center"}>
+              <Box borderRadius={3} bg={"tomato"} w={"96"} textAlign={"center"}>
                 <Text color={"white"}>{error}</Text>
               </Box>
             )}

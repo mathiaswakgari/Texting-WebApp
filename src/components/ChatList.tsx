@@ -1,4 +1,4 @@
-import { Spinner, VStack } from "@chakra-ui/react";
+import { Spinner, VStack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { AuthContext } from "../context/AuthContext";
@@ -29,10 +29,12 @@ const ChatList = () => {
     }
   }, [currentUser.uid]);
 
+  if (chats == undefined) return <Spinner size={"lg"}></Spinner>;
+
   return (
-    <VStack>
-      {!chats ? (
-        <Spinner></Spinner>
+    <VStack justifyContent={"center"} width={"full"}>
+      {chats ? (
+        <Text>No chats.</Text>
       ) : (
         Object.entries(chats)
           .sort((a, b) => a[1]["date"] - b[1]["date"])
