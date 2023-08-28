@@ -1,7 +1,7 @@
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import RegisterForm from "./RegisterForm";
 import { createUser, auth, storage, firestore } from "../services/firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -22,58 +22,60 @@ const Register = () => {
   const registerUser = async (registerInfo: User) => {
     if (Object.keys(registerInfo).length !== 0) {
       setIsRegistering(true);
-      const res = await createUser(
-        auth,
-        registerInfo.email,
-        registerInfo.password
-      );
-
-      if (Object.keys(registerInfo.file).length !== 0) {
-        const storageRef = ref(storage, res.user.uid);
-        const uploadTask = uploadBytesResumable(
-          storageRef,
-          registerInfo.file[0]
-        );
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {},
-          (error) => {
-            setError(error.message);
-            console.log(error.message);
-            setIsRegistering(false);
-          },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then(
-              async (downloadURL) => {
-                await updateProfile(res.user, {
-                  displayName: registerInfo.fullname,
-                  photoURL: downloadURL,
-                });
-                await setDoc(doc(firestore, "users", res.user.uid), {
-                  fullName: registerInfo.fullname,
-                  email: registerInfo.email,
-                  photoURL: downloadURL,
-                  uid: res.user.uid,
-                });
-                await setDoc(doc(firestore, "userChats", res.user.uid), {});
+      await createUser(auth, registerInfo.email, registerInfo.password)
+        .then(async (res) => {
+          if (Object.keys(registerInfo.file).length !== 0) {
+            const storageRef = ref(storage, res.user.uid);
+            const uploadTask = uploadBytesResumable(
+              storageRef,
+              registerInfo.file[0]
+            );
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {},
+              (error) => {
+                setError(error.message);
+                console.log(error.message);
                 setIsRegistering(false);
+              },
+              () => {
+                getDownloadURL(uploadTask.snapshot.ref).then(
+                  async (downloadURL) => {
+                    await updateProfile(res.user, {
+                      displayName: registerInfo.fullname,
+                      photoURL: downloadURL,
+                    });
+                    await setDoc(doc(firestore, "users", res.user.uid), {
+                      fullName: registerInfo.fullname,
+                      email: registerInfo.email,
+                      photoURL: downloadURL,
+                      uid: res.user.uid,
+                    });
+                    await setDoc(doc(firestore, "userChats", res.user.uid), {});
+                    setIsRegistering(false);
+                    navigate("/login");
+                  }
+                );
               }
             );
+          } else {
+            await updateProfile(res.user, {
+              displayName: registerInfo.fullname,
+            });
+            await setDoc(doc(firestore, "users", res.user.uid), {
+              fullName: registerInfo.fullname,
+              email: registerInfo.email,
+              photoURL: "",
+              uid: res.user.uid,
+            });
+            await setDoc(doc(firestore, "userChats", res.user.uid), {});
+            setIsRegistering(false);
+            navigate("/login");
           }
-        );
-      } else {
-        await updateProfile(res.user, {
-          displayName: registerInfo.fullname,
+        })
+        .catch((e) => {
+          console.log(e.message);
         });
-        await setDoc(doc(firestore, "users", res.user.uid), {
-          fullName: registerInfo.fullname,
-          email: registerInfo.email,
-          photoURL: "",
-          uid: res.user.uid,
-        });
-        await setDoc(doc(firestore, "userChats", res.user.uid), {});
-        setIsRegistering(false);
-      }
     }
   };
 

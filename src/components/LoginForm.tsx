@@ -14,6 +14,7 @@ import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "./Login";
+import { useState } from "react";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid Email type." }),
@@ -23,13 +24,12 @@ const schema = z.object({
 });
 
 interface Props {
-  onChange: (data: User) => void;
   onSubmit: (data: User) => void;
 }
 
 type FormData = z.infer<typeof schema>;
 
-const LoginForm = ({ onSubmit, onChange }: Props) => {
+const LoginForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
@@ -37,8 +37,9 @@ const LoginForm = ({ onSubmit, onChange }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+  const [loginCredential, setLoginCredential] = useState<User>({} as User);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onChange={handleSubmit(onChange)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
         <Box w={"96"}>
           <FormLabel htmlFor="email">Email</FormLabel>
@@ -51,6 +52,12 @@ const LoginForm = ({ onSubmit, onChange }: Props) => {
               id="email"
               type="email"
               placeholder="Enter your email"
+              onChange={(e) =>
+                setLoginCredential({
+                  ...loginCredential,
+                  email: e.currentTarget.value,
+                })
+              }
             />
           </InputGroup>
           {errors?.email && (
@@ -68,6 +75,12 @@ const LoginForm = ({ onSubmit, onChange }: Props) => {
               id="password"
               type="password"
               placeholder="Enter your password here"
+              onChange={(e) =>
+                setLoginCredential({
+                  ...loginCredential,
+                  password: e.currentTarget.value,
+                })
+              }
             />
           </InputGroup>
           {errors?.password && (

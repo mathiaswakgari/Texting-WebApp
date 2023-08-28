@@ -17,7 +17,6 @@ const LoginUser = async (loginCredential: User) => {
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loginCredential, setLoginCredential] = useState<User>({} as User);
 
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
@@ -33,11 +32,8 @@ const Login = () => {
               <Text fontSize={"xl"}>Your space to be social.</Text>
             </Box>
             <LoginForm
-              onChange={(data) => {
-                setLoginCredential(data);
-              }}
               onSubmit={(data) => {
-                LoginUser(loginCredential)
+                LoginUser(data)
                   .then(() => {
                     navigate("/");
                   })
