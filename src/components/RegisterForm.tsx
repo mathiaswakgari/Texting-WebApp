@@ -36,9 +36,7 @@ const schema = z.object({
   password: z.string().min(8, {
     message: "Password must be atleast 8 characters long.",
   }),
-  file: z
-    .any()
-    .refine((files) => files?.length === 1, "Profile picture is required."),
+  file: z.any().refine((files) => files, "Profile picture is required."),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -138,12 +136,12 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
             display={"none"}
             type="file"
             id="file"
-            onChange={(e) =>
+            onClick={(e) => {
               setRegisterForm({
                 ...registerForm,
-                file: e.currentTarget.files![0],
-              })
-            }
+                file: e.currentTarget.files,
+              });
+            }}
           />
           {errors?.file && (
             <Text color={"tomato"}>{errors?.file?.message?.toString()}</Text>
@@ -154,9 +152,9 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
             type="submit"
             colorScheme="green"
             w={"96"}
-            disabled={!isRegistering}
+            isLoading={isRegistering}
           >
-            {isRegistering ? <Spinner></Spinner> : "Register"}
+            Register
           </Button>
         </Box>
       </VStack>

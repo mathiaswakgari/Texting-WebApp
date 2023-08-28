@@ -28,10 +28,12 @@ const Register = () => {
         registerInfo.password
       );
 
-      const storageRef = ref(storage, res.user.uid);
-      const uploadTask = uploadBytesResumable(storageRef, registerInfo.file[0]);
-
-      if (registerInfo.file) {
+      if (Object.keys(registerInfo.file).length !== 0) {
+        const storageRef = ref(storage, res.user.uid);
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          registerInfo.file[0]
+        );
         uploadTask.on(
           "state_changed",
           (snapshot) => {},
