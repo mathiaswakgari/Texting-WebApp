@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import { BiImage } from "react-icons/bi";
+import { BsFillSendFill } from "react-icons/bs";
 
 interface Props {
   onFileChange: (file: File) => void;
@@ -63,10 +64,11 @@ const ChatInput = ({
             </FormLabel>
             <Button
               colorScheme={"green"}
-              borderRadius={0}
+              borderRadius={"lg"}
               mr={2}
               size={"sm"}
               onClick={onSend}
+              rightIcon={<BsFillSendFill />}
             >
               Send
             </Button>
