@@ -10,11 +10,14 @@ import { ChatContext } from "../context/ChatContext";
 export interface ChatInfo {
   date: Timestamp;
   userInfo: User;
+  lastMessage?: {
+    message: string;
+  };
 }
 
 const ChatList = () => {
   const currentUser = useContext(AuthContext);
-  const { data, dispatch } = useContext(ChatContext);
+  const { dispatch } = useContext(ChatContext);
   const [chats, setChats] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,8 +35,6 @@ const ChatList = () => {
     }
     setIsLoading(false);
   }, [currentUser.uid]);
-
-  // if (chats == undefined) return <Text>No Chat.</Text>;
 
   return (
     <VStack justifyContent={"center"} width={"full"}>
