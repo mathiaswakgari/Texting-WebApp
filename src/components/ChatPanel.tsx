@@ -1,5 +1,5 @@
-import { Box, VStack, Text, HStack, Spinner } from "@chakra-ui/react";
-import { AiOutlineVideoCameraAdd } from "react-icons/ai";
+import { Box, VStack, Text, HStack, Spinner, Input } from "@chakra-ui/react";
+import { AiOutlineVideoCameraAdd, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import ChatInput from "./ChatInput";
@@ -30,6 +30,8 @@ export interface Message {
 }
 
 const ChatPanel = () => {
+  const { dispatch } = useContext(ChatContext);
+
   const {
     data: {
       chatId,
@@ -93,7 +95,6 @@ const ChatPanel = () => {
   useEffect(() => {
     if (chatId) {
       onSnapshot(doc(firestore, "chats", chatId), (doc) => {
-        console.log(chatId);
         doc.exists() && setMessages(doc.data().messages as []);
       });
     }
@@ -101,47 +102,70 @@ const ChatPanel = () => {
 
   return (
     <VStack bg={"gray.700"}>
-      <HStack
-        justifyContent={"space-between"}
-        px={2}
-        bg={"gray.400"}
-        h={"50px"}
-        w={"full"}
-      >
-        <Text>{fullName}</Text>
-        <HStack>
-          <AiOutlineVideoCameraAdd />
-          <BsThreeDots />
-        </HStack>
-      </HStack>
-      <Box
-        overflow={"auto"}
-        height={"calc(100vh - 64px - 50px)"}
-        width={"full"}
-      >
-        {messages === undefined ? (
-          <Spinner></Spinner>
-        ) : (
-          messages.map((message: Message) => {
-            if (currentUser.uid !== message.senderId) {
-              if (message.fileLink)
-                return <ImageMessageCardTwo message={message} />;
-              return <MessageCard key={message.id} message={message} />;
-            } else {
-              if (message.fileLink)
-                return <ImageMessageCard message={message} />;
-              return <MessageCardTwo key={message.id} message={message} />;
-            }
-          })
-        )}
-      </Box>
-      <Box w={"full"} h={"full"} bg={"red"}>
-        <ChatInput
-          onMessageChange={(text) => setMessage(text)}
-          onFileChange={(file) => setFile(file)}
-          onSend={handleSend}
-        />
-      </Box>
+      {!chatId ? (
+        <Box w={"full"} height={"100vh"}>
+          <Box h={"50px"} w={"full"} bg={"gray.400"}></Box>
+          <VStack h={"calc(100vh - 50px)"} justifyContent={"center"}>
+            <Text fontSize={"xl"} color={"white"}>
+              Select a chat.
+            </Text>
+          </VStack>
+        </Box>
+      ) : (
+        <>
+          <HStack
+            justifyContent={"space-between"}
+            px={2}
+            bg={"gray.400"}
+            h={"50px"}
+            w={"full"}
+          >
+            <AiOutlineArrowLeft
+              onClick={() => {
+                setMessages([]);
+                dispatch({ type: "RESET", payload: {} });
+              }}
+            />
+            <Text>{fullName}</Text>
+            <HStack>
+              <AiOutlineVideoCameraAdd />
+              <BsThreeDots />
+            </HStack>
+          </HStack>
+          <Box
+            overflow={"auto"}
+            height={"calc(100vh - 64px - 50px)"}
+            width={"full"}
+          >
+            {messages === undefined ? (
+              <Spinner></Spinner>
+            ) : (
+              messages.map((message: Message) => {
+                if (currentUser.uid !== message.senderId) {
+                  if (message.fileLink)
+                    return (
+                      <ImageMessageCardTwo key={message.id} message={message} />
+                    );
+                  return <MessageCard key={message.id} message={message} />;
+                } else {
+                  if (message.fileLink)
+                    return (
+                      <ImageMessageCard key={message.id} message={message} />
+                    );
+                  return <MessageCardTwo key={message.id} message={message} />;
+                }
+              })
+            )}
+          </Box>
+          <Box w={"full"} h={"full"} bg={"red"}>
+            <ChatInput
+              onMessageChange={(text) => setMessage(text)}
+              onFileChange={(file) => setFile(file)}
+              onSend={handleSend}
+            />
+          </Box>
+        </>
+      )}
     </VStack>
   );
 };
