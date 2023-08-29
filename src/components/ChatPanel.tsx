@@ -1,4 +1,4 @@
-import { Box, VStack, Text, HStack, Spinner, Input } from "@chakra-ui/react";
+import { Box, VStack, Text, HStack, Spinner, Image } from "@chakra-ui/react";
 import { AiOutlineVideoCameraAdd, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
@@ -42,6 +42,7 @@ const ChatPanel = () => {
 
   const [messages, setMessages] = useState<any>([]);
   const [message, setMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState<any>();
   const [file, setFile] = useState<File>();
 
   const handleSend = async () => {
@@ -132,9 +133,14 @@ const ChatPanel = () => {
               <BsThreeDots />
             </HStack>
           </HStack>
+
           <Box
             overflow={"auto"}
-            height={"calc(100vh - 64px - 50px)"}
+            height={
+              selectedFile
+                ? "calc(100vh - 64px - 50px - 200px)"
+                : "calc(100vh - 64px - 50px)"
+            }
             width={"full"}
           >
             {messages === undefined ? (
@@ -157,10 +163,28 @@ const ChatPanel = () => {
               })
             )}
           </Box>
-          <Box w={"full"} h={"full"} bg={"red"}>
+
+          <Box w={"full"} h={"full"} display={"flex"} flexDirection={"column"}>
+            {selectedFile && (
+              <Box
+                w={"full"}
+                bg={"rgba(255,255,255,0.2)"}
+                display={"flex"}
+                flexDirection={"column"}
+              >
+                <Image
+                  objectFit={"contain"}
+                  height={"200px"}
+                  src={selectedFile}
+                />
+              </Box>
+            )}
             <ChatInput
               onMessageChange={(text) => setMessage(text)}
               onFileChange={(file) => setFile(file)}
+              onFileSelect={(e: any) =>
+                setSelectedFile(URL.createObjectURL(e.currentTarget.files![0]))
+              }
               onSend={handleSend}
             />
           </Box>
