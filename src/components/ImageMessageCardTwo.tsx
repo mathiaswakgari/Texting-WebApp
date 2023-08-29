@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 
-import { Avatar, Box, HStack, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, HStack, Image, Spinner, Text } from "@chakra-ui/react";
 import { Message } from "./ChatPanel";
 import { ChatContext } from "../context/ChatContext";
 
@@ -26,6 +26,18 @@ const ImageMessageCardTwo = ({ message }: Props) => {
       </Box>
       <Box bg={"white"} w={"96"} borderRadius={"lg"} ml={2}>
         <Image
+          fallback={
+            <Box
+              borderRadius={"lg"}
+              display={"flex"}
+              bg={"gray.100"}
+              h={"100px"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Spinner></Spinner>
+            </Box>
+          }
           src={message.fileLink}
           objectFit={"cover"}
           alt={message.text}
