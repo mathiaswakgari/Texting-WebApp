@@ -1,5 +1,9 @@
 import { Box, VStack, Text, HStack, Spinner, Image } from "@chakra-ui/react";
-import { AiOutlineVideoCameraAdd, AiOutlineArrowLeft } from "react-icons/ai";
+import {
+  AiOutlineVideoCameraAdd,
+  AiOutlineArrowLeft,
+  AiOutlineCloseCircle,
+} from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import ChatInput from "./ChatInput";
@@ -168,11 +172,24 @@ const ChatPanel = () => {
             {selectedFile && (
               <Box
                 w={"full"}
+                maxH={"200px"}
                 bg={"rgba(255,255,255,0.2)"}
                 display={"flex"}
-                flexDirection={"column"}
+                flexDirection={"row"}
               >
+                <Box>
+                  <AiOutlineCloseCircle
+                    color="white"
+                    fontSize="30px"
+                    cursor="pointer"
+                    onClick={() => {
+                      setFile(undefined);
+                      setSelectedFile(undefined);
+                    }}
+                  />
+                </Box>
                 <Image
+                  w={"full"}
                   objectFit={"contain"}
                   height={"200px"}
                   src={selectedFile}

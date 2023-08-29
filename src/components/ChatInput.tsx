@@ -58,6 +58,7 @@ const ChatInput = ({
                 style={{
                   marginTop: "7px",
                 }}
+                cursor="pointer"
               />
             </FormLabel>
             <Button
