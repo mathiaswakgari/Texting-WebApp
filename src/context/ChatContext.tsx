@@ -21,6 +21,7 @@ interface Action {
 }
 enum ActionKind {
   CHANGE_USER = "CHANGE_USER",
+  RESET = "RESET",
 }
 
 export const ChatContext = createContext<any>({});
@@ -41,6 +42,8 @@ export const ChatProvider = ({ children }: Props) => {
               ? `${currentUser.uid}_${action.payload.uid}`
               : `${action.payload.uid}_${currentUser.uid}`,
         };
+      case ActionKind.RESET:
+        return INITIAL_STATE;
       default:
         return state;
     }

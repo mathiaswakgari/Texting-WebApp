@@ -3,9 +3,11 @@ import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 
 const NavBar = () => {
   const currentUser = useContext(AuthContext);
+  const { dispatch } = useContext(ChatContext);
 
   return (
     <Box height={"50px"}>
@@ -28,7 +30,10 @@ const NavBar = () => {
             <Text>{currentUser.displayName}</Text>
           </HStack>
           <Button
-            onClick={() => signOut(auth)}
+            onClick={() => {
+              dispatch({ type: "RESET", payload: {} });
+              signOut(auth);
+            }}
             size={"xs"}
             borderRadius={0}
             colorScheme="green"
