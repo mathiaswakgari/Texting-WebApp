@@ -18,6 +18,8 @@ import {
 import { firestore, storage } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import ImageMessageCard from "./ImageMessageCard";
+import ImageMessageCardTwo from "./ImageMessageCardTwo";
 
 export interface Message {
   date: Timestamp;
@@ -73,19 +75,19 @@ const ChatPanel = () => {
           date: Timestamp.now(),
         }),
       });
-      await updateDoc(doc(firestore, "userChats", currentUser.uid), {
-        [`${chatId}.lastMessage`]: {
-          message,
-        },
-        [`${chatId}.date`]: serverTimestamp(),
-      });
-      await updateDoc(doc(firestore, "userChats", uid), {
-        [`${chatId}.lastMessage`]: {
-          message,
-        },
-        [`${chatId}.date`]: serverTimestamp(),
-      });
     }
+    await updateDoc(doc(firestore, "userChats", currentUser.uid), {
+      [`${chatId}.lastMessage`]: {
+        message,
+      },
+      [`${chatId}.date`]: serverTimestamp(),
+    });
+    await updateDoc(doc(firestore, "userChats", uid), {
+      [`${chatId}.lastMessage`]: {
+        message,
+      },
+      [`${chatId}.date`]: serverTimestamp(),
+    });
   };
 
   useEffect(() => {
@@ -122,9 +124,14 @@ const ChatPanel = () => {
         ) : (
           messages.map((message: Message) => {
             if (currentUser.uid !== message.senderId) {
+              if (message.fileLink)
+                return <ImageMessageCardTwo message={message} />;
               return <MessageCard key={message.id} message={message} />;
+            } else {
+              if (message.fileLink)
+                return <ImageMessageCard message={message} />;
+              return <MessageCardTwo key={message.id} message={message} />;
             }
-            return <MessageCardTwo key={message.id} message={message} />;
           })
         )}
       </Box>
