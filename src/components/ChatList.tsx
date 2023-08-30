@@ -19,10 +19,12 @@ const ChatList = () => {
   const currentUser = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
   const [chats, setChats] = useState<any>();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSelect = (user: User) => {
     dispatch({ type: "CHANGE_USER", payload: user });
+    setSelectedChat(user);
   };
 
   useEffect(() => {

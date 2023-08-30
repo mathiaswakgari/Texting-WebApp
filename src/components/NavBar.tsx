@@ -12,7 +12,7 @@ import { auth } from "../services/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import { BsDoorOpen } from "react-icons/bs";
+import { PiSignOut } from "react-icons/pi";
 import logo from "../assets/logo.png";
 
 const NavBar = () => {
@@ -41,7 +41,7 @@ const NavBar = () => {
             ></Avatar>
             <Text color={"whiteAlpha.800"}>{currentUser.displayName}</Text>
           </HStack>
-          <BsDoorOpen
+          <PiSignOut
             onClick={() => {
               dispatch({ type: "RESET", payload: {} });
               signOut(auth);
