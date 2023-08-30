@@ -6,23 +6,21 @@ interface Props {
 
 const SearchBar = ({ onChange }: Props) => {
   return (
-    <Box
-      px={1}
-      w={"96"}
-      bg={"whiteAlpha.200"}
-      borderRadius={"3xl"}
-      marginTop={2}
-    >
+    <Box color={"white"} px={1} w={"full"} borderRadius={"3xl"} marginTop={5}>
       <InputGroup>
         <InputRightElement marginTop={"5px"} marginRight={3}>
           <BsSearch color="white" fontSize="20px" />
         </InputRightElement>
         <Input
+          bg={"whiteAlpha.200"}
           border={"none"}
           type="text"
           height={"50px"}
           borderRadius={"3xl"}
           placeholder="Search here..."
+          _placeholder={{
+            color: "whiteAlpha.700",
+          }}
           onChange={(e) => onChange(e.currentTarget.value)}
         />
       </InputGroup>
