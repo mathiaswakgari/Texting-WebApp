@@ -18,6 +18,7 @@ const UserCard = ({ data, onClick }: Props) => {
         bg: "blackAlpha.700",
         transitionDuration: "400ms",
       }}
+      paddingLeft={2}
       cursor="pointer"
       onClick={() => onClick(userInfo)}
     >
