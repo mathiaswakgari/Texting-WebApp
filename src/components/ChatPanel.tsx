@@ -106,11 +106,7 @@ const ChatPanel = () => {
   }, [chatId]);
 
   return (
-    <VStack
-      bg={"blackAlpha.500"}
-      borderLeft={"3px solid"}
-      borderLeftColor={"whiteAlpha.400"}
-    >
+    <VStack bg={"blackAlpha.500"} borderLeftColor={"whiteAlpha.400"}>
       {!chatId ? (
         <Box w={"full"} height={"100vh"}>
           <Box h={"50px"} w={"full"}></Box>

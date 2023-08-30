@@ -6,6 +6,7 @@ import { Timestamp, doc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../services/firebase";
 import { User } from "./SideBar";
 import { ChatContext } from "../context/ChatContext";
+import DemoCard from "./DemoCard";
 
 export interface ChatInfo {
   date: Timestamp;
@@ -39,7 +40,11 @@ const ChatList = () => {
   }, [currentUser.uid]);
 
   return (
-    <VStack justifyContent={"center"} width={"full"}>
+    <VStack
+      width={"full"}
+      height={"calc(100vh - 50px - 90px)"}
+      overflowY={"scroll"}
+    >
       {!chats ? (
         <Spinner size={"lg"}></Spinner>
       ) : (
