@@ -22,13 +22,19 @@ const ImageMessageCard = ({ message }: Props) => {
       marginY={3}
       justifyContent={"end"}
     >
-      <Box bg={"white"} w={"96"} borderRadius={"lg"} ml={2}>
+      <Box
+        bg={"whiteAlpha.300"}
+        color={"white"}
+        w={"96"}
+        borderRadius={"lg"}
+        ml={2}
+      >
         <Image
           fallback={
             <Box
               borderRadius={"lg"}
               display={"flex"}
-              bg={"gray.100"}
+              bg={"whiteAlpha.300"}
               h={"100px"}
               justifyContent={"center"}
               alignItems={"center"}
@@ -39,9 +45,13 @@ const ImageMessageCard = ({ message }: Props) => {
           src={message.fileLink}
           objectFit={"cover"}
           alt={message.text}
-          borderRadius={"lg"}
+          borderRadius={"10px 10px 0 0px"}
         />
-        {message.text && <Text px={2}>{message.text}</Text>}
+        {message.text && (
+          <Text fontWeight={"normal"} px={2}>
+            {message.text}
+          </Text>
+        )}
       </Box>
       <Box pr={1}>
         <Avatar

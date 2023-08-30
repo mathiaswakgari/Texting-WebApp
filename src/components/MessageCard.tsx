@@ -24,14 +24,17 @@ const MessageCard = ({ message }: Props) => {
         <Avatar src={photoURL} name={fullName} size={"sm"}></Avatar>
       </Box>
       <Box
-        bg={"white"}
+        bg={"whiteAlpha.300"}
+        color={"white"}
         minH={"30px"}
         maxW={"96"}
         borderRadius={"0 10px 10px 10px"}
         ml={2}
         maxWidth={"full"}
       >
-        <Text px={2}>{message.text}</Text>
+        <Text fontWeight={"normal"} px={2}>
+          {message.text}
+        </Text>
       </Box>
     </HStack>
   );

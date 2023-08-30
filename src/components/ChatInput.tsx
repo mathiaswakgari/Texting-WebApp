@@ -26,11 +26,11 @@ const ChatInput = ({
 }: Props) => {
   return (
     <>
-      <InputGroup borderRadius={"2xl"}>
+      <InputGroup borderRadius={"3xl"}>
         <Textarea
           marginTop={1}
           placeholder="message..."
-          borderRadius={"2xl"}
+          borderRadius={"3xl"}
           maxW={"calc(100% - 150px)"}
           focusBorderColor="lime"
           bg={"white"}
@@ -44,6 +44,7 @@ const ChatInput = ({
         />
         <InputRightElement w={"150px"}>
           <HStack
+            h={"full"}
             w={"full"}
             color={"white"}
             justifyContent={"end"}
