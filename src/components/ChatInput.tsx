@@ -26,7 +26,7 @@ const ChatInput = ({
 }: Props) => {
   return (
     <>
-      <InputGroup size={"lg"} borderRadius={"2xl"}>
+      <InputGroup size={"md"} borderRadius={"2xl"}>
         <Input
           type="text"
           placeholder="message..."
