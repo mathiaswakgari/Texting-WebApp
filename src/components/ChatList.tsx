@@ -25,7 +25,6 @@ const ChatList = () => {
 
   const handleSelect = (user: User) => {
     dispatch({ type: "CHANGE_USER", payload: user });
-    setSelectedChat(user);
   };
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const ChatList = () => {
         <Spinner size={"lg"}></Spinner>
       ) : (
         Object.entries(chats)
-          .sort((a, b) => a[1]["date"] - b[1]["date"])
+          .sort((a, b) => b[1]["date"] - a[1]["date"])
           .map((chat) => (
             <UserCard
               onClick={handleSelect}
