@@ -10,10 +10,10 @@ const Home = () => {
                   "sidebar chatpanel"
                   `}
       gridTemplateColumns={"400px 1fr"}
-      color="blackAlpha.700"
       fontWeight="bold"
+      bg={"blackAlpha.900"}
     >
-      <GridItem px="2" area={"navbar"}>
+      <GridItem px="1" area={"navbar"}>
         <NavBar />
       </GridItem>
       <GridItem area={"chatpanel"}>

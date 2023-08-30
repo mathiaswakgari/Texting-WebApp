@@ -1,10 +1,19 @@
-import { Avatar, Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  HStack,
+  Heading,
+  Text,
+  Image,
+} from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { BsDoorOpen } from "react-icons/bs";
+import logo from "../assets/logo.png";
 
 const NavBar = () => {
   const currentUser = useContext(AuthContext);
@@ -18,30 +27,28 @@ const NavBar = () => {
         alignItems={"center"}
         height={"full"}
       >
-        <Heading fontSize={"2xl"} color={"black"}>
+        {/* <Heading fontSize={"2xl"} color={"black"}>
           Z
-        </Heading>
+        </Heading> */}
+
+        <Image boxSize={"20"} src={logo} alt={logo} />
         <HStack>
-          <HStack>
+          <HStack mr={"20px"}>
             <Avatar
               size={"sm"}
               name={currentUser?.displayName!}
               src={currentUser?.photoURL!}
             ></Avatar>
-            <Text>{currentUser.displayName}</Text>
+            <Text color={"whiteAlpha.800"}>{currentUser.displayName}</Text>
           </HStack>
-          <Button
+          <BsDoorOpen
             onClick={() => {
               dispatch({ type: "RESET", payload: {} });
               signOut(auth);
             }}
-            size={"sm"}
-            borderRadius={"lg"}
-            colorScheme="green"
-            rightIcon={<BsDoorOpen />}
-          >
-            Signout
-          </Button>
+            fontSize="25px"
+            color="whiteAlpha.800"
+          />
         </HStack>
       </HStack>
     </Box>
