@@ -11,7 +11,15 @@ const UserCard = ({ data, onClick }: Props) => {
   const { date, userInfo, lastMessage } = data;
 
   return (
-    <HStack w={"96"} h={"70px"} onClick={() => onClick(userInfo)}>
+    <HStack
+      w={"full"}
+      h={"70px"}
+      _hover={{
+        bg: "gray.700",
+        transitionDuration: "400ms",
+      }}
+      onClick={() => onClick(userInfo)}
+    >
       <Box pl={1}>
         <Avatar src={userInfo.photoURL} name={userInfo.fullName}></Avatar>
       </Box>
