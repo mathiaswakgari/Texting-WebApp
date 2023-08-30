@@ -4,6 +4,7 @@ import { auth } from "../services/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import { BsDoorOpen } from "react-icons/bs";
 
 const NavBar = () => {
   const currentUser = useContext(AuthContext);
@@ -18,7 +19,7 @@ const NavBar = () => {
         height={"full"}
       >
         <Heading fontSize={"2xl"} color={"black"}>
-          ChatApp
+          Z
         </Heading>
         <HStack>
           <HStack>
@@ -34,9 +35,10 @@ const NavBar = () => {
               dispatch({ type: "RESET", payload: {} });
               signOut(auth);
             }}
-            size={"xs"}
-            borderRadius={0}
+            size={"sm"}
+            borderRadius={"lg"}
             colorScheme="green"
+            rightIcon={<BsDoorOpen />}
           >
             Signout
           </Button>
