@@ -5,7 +5,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Image,
+  Textarea,
 } from "@chakra-ui/react";
 
 import { BiImage } from "react-icons/bi";
@@ -26,19 +26,24 @@ const ChatInput = ({
 }: Props) => {
   return (
     <>
-      <InputGroup size={"md"} borderRadius={"2xl"}>
-        <Input
-          type="text"
+      <InputGroup borderRadius={"2xl"}>
+        <Textarea
+          marginTop={1}
           placeholder="message..."
           borderRadius={"2xl"}
-          w={"calc(100% - 150px)"}
+          maxW={"calc(100% - 150px)"}
+          focusBorderColor="lime"
           bg={"white"}
+          size={"sm"}
           border={"none"}
+          height={"40px"}
+          resize={"none"}
+          cols={1}
+          rows={4}
           onChange={(e) => onMessageChange(e.currentTarget.value)}
         />
         <InputRightElement w={"150px"}>
           <HStack
-            h={"full"}
             w={"full"}
             color={"white"}
             justifyContent={"end"}

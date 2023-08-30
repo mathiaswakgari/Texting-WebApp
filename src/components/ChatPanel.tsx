@@ -173,8 +173,8 @@ const ChatPanel = () => {
             {selectedFile && (
               <Box
                 w={"full"}
-                maxH={"200px"}
-                bg={"rgba(255,255,255,0.2)"}
+                maxH={"250px"}
+                bg={"rgba(255,255,255,0.11)"}
                 display={"flex"}
                 flexDirection={"row"}
               >
@@ -191,20 +191,24 @@ const ChatPanel = () => {
                 </Box>
                 <Image
                   w={"full"}
-                  objectFit={"contain"}
+                  objectFit={"scale-down"}
                   height={"200px"}
                   src={selectedFile}
                 />
               </Box>
             )}
-            <ChatInput
-              onMessageChange={(text) => setMessage(text)}
-              onFileChange={(file) => setFile(file)}
-              onFileSelect={(e: any) =>
-                setSelectedFile(URL.createObjectURL(e.currentTarget.files![0]))
-              }
-              onSend={handleSend}
-            />
+            <Box>
+              <ChatInput
+                onMessageChange={(text) => setMessage(text)}
+                onFileChange={(file) => setFile(file)}
+                onFileSelect={(e: any) =>
+                  setSelectedFile(
+                    URL.createObjectURL(e.currentTarget.files![0])
+                  )
+                }
+                onSend={handleSend}
+              />
+            </Box>
           </Box>
         </>
       )}
