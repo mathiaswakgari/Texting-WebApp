@@ -15,9 +15,10 @@ const UserCard = ({ data, onClick }: Props) => {
       w={"full"}
       h={"70px"}
       _hover={{
-        bg: "gray.700",
+        bg: "blackAlpha.700",
         transitionDuration: "400ms",
       }}
+      cursor="pointer"
       onClick={() => onClick(userInfo)}
     >
       <Box pl={1}>

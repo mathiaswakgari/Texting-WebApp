@@ -33,7 +33,7 @@ const NavBar = () => {
 
         <Image boxSize={"20"} src={logo} alt={logo} />
         <HStack>
-          <HStack mr={"20px"}>
+          <HStack mr={"10px"}>
             <Avatar
               size={"sm"}
               name={currentUser?.displayName!}
@@ -47,10 +47,12 @@ const NavBar = () => {
               signOut(auth);
             }}
             fontSize="25px"
-            color="whiteAlpha.800"
+            color="white"
+            cursor="pointer"
           />
         </HStack>
       </HStack>
+      <hr></hr>
     </Box>
   );
 };

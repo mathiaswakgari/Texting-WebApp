@@ -106,10 +106,14 @@ const ChatPanel = () => {
   }, [chatId]);
 
   return (
-    <VStack bg={"gray.700"}>
+    <VStack
+      bg={"blackAlpha.500"}
+      borderLeft={"3px solid"}
+      borderLeftColor={"whiteAlpha.400"}
+    >
       {!chatId ? (
         <Box w={"full"} height={"100vh"}>
-          <Box h={"50px"} w={"full"} bg={"gray.400"}></Box>
+          <Box h={"50px"} w={"full"}></Box>
           <VStack h={"calc(100vh - 50px)"} justifyContent={"center"}>
             <Text fontSize={"xl"} color={"white"}>
               Select a chat.
@@ -121,9 +125,9 @@ const ChatPanel = () => {
           <HStack
             justifyContent={"space-between"}
             px={2}
-            bg={"gray.400"}
             h={"50px"}
             w={"full"}
+            bg={"whiteAlpha.900"}
           >
             <AiOutlineArrowLeft
               onClick={() => {

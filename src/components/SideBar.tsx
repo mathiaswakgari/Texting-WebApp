@@ -97,7 +97,7 @@ const SideBar = () => {
   };
 
   return (
-    <Box minHeight={"calc(100vh - 50px )"} bg={"gray.600"}>
+    <Box minHeight={"calc(100vh - 50px )"}>
       <VStack w="full" alignItems={"start"}>
         <SearchBar
           onChange={(label) => {
