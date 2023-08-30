@@ -1,4 +1,4 @@
-import { Box, Input, VStack } from "@chakra-ui/react";
+import { Box, Input, Spinner, VStack } from "@chakra-ui/react";
 import UserCard from "./UserCard";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
@@ -40,6 +40,7 @@ const startsWithHelper = (text: string) => {
 const SideBar = () => {
   const [searchLabel, setSearchLabel] = useState("");
   const [searchResult, setSearchResult] = useState<Array<User>>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const currentUser = useContext(AuthContext);
 
   useEffect(() => {
@@ -52,14 +53,18 @@ const SideBar = () => {
         where("fullName", "<", endCode)
         // where("uid", "!=", currentUser.uid)
       );
-      try {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          setSearchResult([doc.data() as User]);
+      setIsLoading(true);
+      await getDocs(q)
+        .then((q) => {
+          q.forEach((doc) => {
+            setSearchResult([doc.data() as User]);
+          });
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          setIsLoading(false);
         });
-      } catch (error) {
-        console.log(error);
-      }
     };
     handleSearch();
   }, [searchLabel]);
@@ -97,7 +102,7 @@ const SideBar = () => {
   };
 
   return (
-    <Box minHeight={"calc(100vh - 50px )"}>
+    <Box height={"calc(100vh - 50px )"}>
       <VStack w="full" alignItems={"center"}>
         <SearchBar
           onChange={(label) => {
@@ -105,6 +110,7 @@ const SideBar = () => {
             setSearchResult([]);
           }}
         />
+        {isLoading && <Spinner speed="0.8s" color="white" />}
         {searchResult && (
           <Box w={"full"}>
             {searchResult.map((user) => (

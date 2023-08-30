@@ -26,12 +26,13 @@ const ChatInput = ({
 }: Props) => {
   return (
     <>
-      <InputGroup size={"lg"} bg={"white"}>
+      <InputGroup size={"lg"} borderRadius={"2xl"}>
         <Input
           type="text"
           placeholder="message..."
-          borderRadius={0}
+          borderRadius={"2xl"}
           w={"calc(100% - 150px)"}
+          bg={"white"}
           border={"none"}
           onChange={(e) => onMessageChange(e.currentTarget.value)}
         />
@@ -39,6 +40,7 @@ const ChatInput = ({
           <HStack
             h={"full"}
             w={"full"}
+            color={"white"}
             justifyContent={"end"}
             alignContent={"center"}
             alignItems={"center"}

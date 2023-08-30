@@ -12,6 +12,8 @@ const Home = () => {
       gridTemplateColumns={"400px 1fr"}
       fontWeight="bold"
       bg={"blackAlpha.900"}
+      height={"100vh"}
+      overflowY={"hidden"}
     >
       <GridItem px="1" area={"navbar"}>
         <NavBar />

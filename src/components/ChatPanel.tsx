@@ -106,7 +106,7 @@ const ChatPanel = () => {
   }, [chatId]);
 
   return (
-    <VStack bg={"blackAlpha.500"} borderLeftColor={"whiteAlpha.400"}>
+    <VStack bg={"blackAlpha.500"}>
       {!chatId ? (
         <Box w={"full"} height={"100vh"}>
           <Box h={"50px"} w={"full"}></Box>
@@ -123,7 +123,8 @@ const ChatPanel = () => {
             px={2}
             h={"50px"}
             w={"full"}
-            bg={"whiteAlpha.900"}
+            bg={"whiteAlpha.100"}
+            color={"whiteAlpha.900"}
           >
             <AiOutlineArrowLeft
               onClick={() => {
