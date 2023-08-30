@@ -21,7 +21,7 @@ const MessageCard = ({ message }: Props) => {
   return (
     <HStack ref={ref} w={"full"} minH={"70px"} marginY={3}>
       <Box pl={1}>
-        <Avatar src={photoURL} name={fullName}></Avatar>
+        <Avatar src={photoURL} name={fullName} size={"sm"}></Avatar>
       </Box>
       <Box
         bg={"white"}

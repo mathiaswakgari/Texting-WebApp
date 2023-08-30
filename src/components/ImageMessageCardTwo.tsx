@@ -22,7 +22,7 @@ const ImageMessageCardTwo = ({ message }: Props) => {
   return (
     <HStack ref={ref} w={"full"} minH={"70px"} marginY={3}>
       <Box pl={1}>
-        <Avatar src={photoURL!} name={fullName!}></Avatar>
+        <Avatar size={"sm"} src={photoURL!} name={fullName!}></Avatar>
       </Box>
       <Box bg={"white"} w={"96"} borderRadius={"lg"} ml={2}>
         <Image

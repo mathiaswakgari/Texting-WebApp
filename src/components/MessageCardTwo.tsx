@@ -23,6 +23,7 @@ const MessageCardTwo = ({ message }: Props) => {
       </Box>
       <Box pr={1}>
         <Avatar
+          size={"sm"}
           src={currentUser.photoURL!}
           name={currentUser.displayName!}
         ></Avatar>
