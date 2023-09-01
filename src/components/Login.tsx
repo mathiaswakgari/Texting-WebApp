@@ -1,42 +1,10 @@
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import LoginForm from "./LoginForm";
-import { useState } from "react";
-import { auth, login } from "../services/firebase";
-import { Link, useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
-
-export interface User {
-  email: string;
-  password: string;
-}
+import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [isLogging, setIsLogging] = useState(false);
-  const [error, setError] = useState("");
-
-  const LoginUser = async (loginCredential: User) => {
-    setIsLogging(true);
-    if (Object.keys(loginCredential).length !== 0) {
-      await login(auth, loginCredential.email, loginCredential.password)
-        .then(() => {
-          navigate("/");
-          setIsLogging(false);
-        })
-        .catch((error: FirebaseError) => {
-          console.log(error.code);
-          if (error.code == "auth/wrong-password")
-            setError("Incorrect email or password. Try again");
-          else if (error.code == "auth/too-many-requests")
-            setError("Some error occurred. Please try again.");
-          else {
-            setError("An unkown error occurred. Try again");
-          }
-          setIsLogging(false);
-        });
-    }
-  };
-
+  const { error, isLogging, loginUser } = useLogin();
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
@@ -52,7 +20,7 @@ const Login = () => {
             </Box>
             <LoginForm
               onSubmit={(data) => {
-                LoginUser(data);
+                loginUser(data);
               }}
               isLogging={isLogging}
             />
