@@ -1,82 +1,10 @@
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import RegisterForm from "./RegisterForm";
-import { createUser, auth, storage, firestore } from "../services/firebase";
-import { useState } from "react";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { Link, useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
-
-export interface User {
-  fullname: string;
-  email: string;
-  password: string;
-  file?: any;
-}
+import { Link } from "react-router-dom";
+import useRegister from "../hooks/useRegister";
 
 const Register = () => {
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const [isRegistering, setIsRegistering] = useState(false);
-
-  const registerUser = async (registerInfo: User) => {
-    if (Object.keys(registerInfo).length !== 0) {
-      setIsRegistering(true);
-      await createUser(auth, registerInfo.email, registerInfo.password)
-        .then(async (res) => {
-          setIsRegistering(true);
-          if (Object.keys(registerInfo.file).length !== 0) {
-            const storageRef = ref(storage, res.user.uid);
-            const uploadTask = uploadBytesResumable(
-              storageRef,
-              registerInfo.file[0]
-            );
-            uploadTask.on(
-              "state_changed",
-              (snapshot) => {},
-              (error) => {
-                setIsRegistering(false);
-              },
-              () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(
-                  async (downloadURL) => {
-                    await updateProfile(res.user, {
-                      displayName: registerInfo.fullname,
-                      photoURL: downloadURL,
-                    });
-                    await setDoc(doc(firestore, "users", res.user.uid), {
-                      fullName: registerInfo.fullname,
-                      email: registerInfo.email,
-                      photoURL: downloadURL,
-                      uid: res.user.uid,
-                    });
-                    await setDoc(doc(firestore, "userChats", res.user.uid), {});
-                  }
-                );
-              }
-            );
-          } else {
-            await updateProfile(res.user, {
-              displayName: registerInfo.fullname,
-            });
-            await setDoc(doc(firestore, "users", res.user.uid), {
-              fullName: registerInfo.fullname,
-              email: registerInfo.email,
-              photoURL: "",
-              uid: res.user.uid,
-            });
-            await setDoc(doc(firestore, "userChats", res.user.uid), {});
-          }
-          setIsRegistering(false);
-          navigate("/login");
-        })
-        .catch((e: FirebaseError) => {
-          setIsRegistering(false);
-          setError("An unknown error occured. Try again");
-        });
-    }
-  };
+  const { error, isRegistering, registerUser } = useRegister();
 
   return (
     <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
