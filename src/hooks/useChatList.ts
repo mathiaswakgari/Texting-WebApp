@@ -18,11 +18,13 @@ const useChatList = () => {
   const { dispatch } = useContext(ChatContext);
   const [chats, setChats] = useState<any>();
   useEffect(() => {
+    const controller = new AbortController();
     if (currentUser.uid) {
       onSnapshot(doc(firestore, "userChats", currentUser.uid), (doc) => {
         setChats(doc.data());
       });
     }
+    return () => controller.abort();
   }, [currentUser.uid]);
 
   return {
