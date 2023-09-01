@@ -27,10 +27,6 @@ const NavBar = () => {
         alignItems={"center"}
         height={"full"}
       >
-        {/* <Heading fontSize={"2xl"} color={"black"}>
-          Z
-        </Heading> */}
-
         <Image boxSize={"20"} src={logo} alt={logo} />
         <HStack>
           <HStack mr={"10px"}>

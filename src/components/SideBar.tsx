@@ -1,105 +1,17 @@
-import { Box, Input, Spinner, VStack } from "@chakra-ui/react";
-import UserCard from "./UserCard";
+import { Box, Spinner, VStack } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
-import { useEffect, useState } from "react";
-
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import { firestore } from "../services/firebase";
-import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
 import SearchCard from "./SearchCard";
 import ChatList from "./ChatList";
-
-export interface User {
-  fullName: string;
-  email: string;
-  uid: string;
-  photoURL: string;
-  lastMessage?: string;
-}
-
-const startsWithHelper = (text: string) => {
-  var strlength = text.length;
-  var strFrontCode = text.slice(0, strlength - 1);
-  var strEndCode = text.slice(strlength - 1, text.length);
-  var endcode =
-    strFrontCode + String.fromCharCode(strEndCode.charCodeAt(0) + 1);
-  return endcode;
-};
+import useSideBar from "../hooks/useSideBar";
 
 const SideBar = () => {
-  const [searchLabel, setSearchLabel] = useState("");
-  const [searchResult, setSearchResult] = useState<Array<User>>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const currentUser = useContext(AuthContext);
-
-  useEffect(() => {
-    const handleSearch = async () => {
-      const endCode = startsWithHelper(searchLabel);
-
-      const q = query(
-        collection(firestore, "users"),
-        where("fullName", ">=", searchLabel),
-        where("fullName", "<", endCode)
-        // where("uid", "!=", currentUser.uid)
-      );
-      setIsLoading(true);
-      await getDocs(q)
-        .then((q) => {
-          q.forEach((doc) => {
-            setSearchResult([doc.data() as User]);
-          });
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          setIsLoading(false);
-        });
-    };
-    handleSearch();
-  }, [searchLabel]);
-
-  const handleSearchCardClick = async (user: User) => {
-    const combinedId =
-      currentUser.uid > user.uid
-        ? `${currentUser.uid}_${user.uid}`
-        : `${user.uid}_${currentUser.uid}`;
-    try {
-      const res = await getDoc(doc(firestore, "chats", combinedId));
-      if (!res.exists()) {
-        await setDoc(doc(firestore, "chats", combinedId), { messages: [] });
-
-        await updateDoc(doc(firestore, "userChats", currentUser.uid), {
-          [`${combinedId}.userInfo`]: {
-            uid: user.uid,
-            fullName: user.fullName,
-            photoURL: user.photoURL,
-          },
-          [`${combinedId}.date`]: serverTimestamp(),
-        });
-
-        await updateDoc(doc(firestore, "userChats", user.uid), {
-          [`${combinedId}.userInfo`]: {
-            uid: currentUser.uid,
-            fullName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
-          },
-          [`${combinedId}.date`]: serverTimestamp(),
-        });
-      }
-      setSearchLabel("");
-    } catch (e) {}
-  };
+  const {
+    setSearchLabel,
+    setSearchResult,
+    searchResult,
+    isLoading,
+    handleSearchCardClick,
+  } = useSideBar();
 
   return (
     <Box height={"calc(100vh - 50px )"}>
@@ -123,7 +35,6 @@ const SideBar = () => {
             {searchResult.length !== 0 && <hr></hr>}
           </Box>
         )}
-
         <ChatList />
       </VStack>
     </Box>
