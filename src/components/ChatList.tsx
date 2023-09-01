@@ -1,42 +1,14 @@
-import { Spinner, VStack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { Spinner, VStack } from "@chakra-ui/react";
 import UserCard from "./UserCard";
-import { AuthContext } from "../context/AuthContext";
-import { Timestamp, doc, onSnapshot } from "firebase/firestore";
-import { firestore } from "../services/firebase";
 import { User } from "./SideBar";
-import { ChatContext } from "../context/ChatContext";
-import DemoCard from "./DemoCard";
-
-export interface ChatInfo {
-  date: Timestamp;
-  userInfo: User;
-  lastMessage?: {
-    message: string;
-  };
-}
+import useChatList, { ChatInfo } from "../hooks/useChatList";
 
 const ChatList = () => {
-  const currentUser = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
-  const [chats, setChats] = useState<any>();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const { dispatch, chats } = useChatList();
 
   const handleSelect = (user: User) => {
     dispatch({ type: "CHANGE_USER", payload: user });
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    if (currentUser.uid) {
-      onSnapshot(doc(firestore, "userChats", currentUser.uid), (doc) => {
-        setChats(doc.data());
-        setIsLoading(false);
-      });
-    }
-    setIsLoading(false);
-  }, [currentUser.uid]);
 
   return (
     <VStack
