@@ -8,7 +8,6 @@ import {
   VStack,
   Text,
   HStack,
-  Spinner,
 } from "@chakra-ui/react";
 import { z } from "zod";
 import {
@@ -19,7 +18,7 @@ import {
 } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "./Register";
+import { User } from "../hooks/useLogin";
 import { useState } from "react";
 
 interface Props {
@@ -45,7 +44,7 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -72,6 +71,9 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   fullname: e.currentTarget.value,
                 });
               }}
+              _placeholder={{
+                color: "whiteAlpha.600",
+              }}
             />
           </InputGroup>
           {errors?.fullname && (
@@ -95,6 +97,9 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   email: e.currentTarget.value,
                 })
               }
+              _placeholder={{
+                color: "whiteAlpha.600",
+              }}
             />
           </InputGroup>
           {errors?.email && (
@@ -118,6 +123,9 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   password: e.currentTarget.value,
                 })
               }
+              _placeholder={{
+                color: "whiteAlpha.600",
+              }}
             />
           </InputGroup>
           {errors?.password && (

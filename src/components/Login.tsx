@@ -19,7 +19,7 @@ const Login = () => {
           width={"500px"}
           bg={"blackAlpha.900"}
           borderRadius={10}
-          color={"whiteAlpha.700"}
+          color={"whiteAlpha.800"}
         >
           <VStack
             height={"full"}

@@ -2,14 +2,26 @@ import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import RegisterForm from "./RegisterForm";
 import { Link } from "react-router-dom";
 import useRegister from "../hooks/useRegister";
+import bgImage from "../assets/background.jpg";
 
 const Register = () => {
   const { error, isRegistering, registerUser } = useRegister();
 
   return (
-    <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
+    <Box
+      height={"100vh"}
+      width={"100vw"}
+      bgImage={bgImage}
+      backgroundSize={"cover"}
+    >
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
-        <Box minHeight={"600px"} width={"500px"} bg={"white"} borderRadius={10}>
+        <Box
+          minHeight={"600px"}
+          width={"500px"}
+          bg={"blackAlpha.900"}
+          borderRadius={10}
+          color={"whiteAlpha.800"}
+        >
           <VStack
             height={"full"}
             width={"full"}

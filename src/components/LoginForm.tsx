@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  FormControl,
   FormLabel,
   Input,
   InputGroup,
@@ -11,9 +10,9 @@ import {
 } from "@chakra-ui/react";
 import { z } from "zod";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "./Login";
+import { User } from "../hooks/useLogin";
 import { useState } from "react";
 
 const schema = z.object({
@@ -59,6 +58,9 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
                   email: e.currentTarget.value,
                 })
               }
+              _placeholder={{
+                color: "whiteAlpha.600",
+              }}
             />
           </InputGroup>
           {errors?.email && (
@@ -82,6 +84,9 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
                   password: e.currentTarget.value,
                 })
               }
+              _placeholder={{
+                color: "whiteAlpha.600",
+              }}
             />
           </InputGroup>
           {errors?.password && (
