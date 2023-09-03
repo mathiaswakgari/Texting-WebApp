@@ -27,7 +27,7 @@ const NavBar = () => {
         alignItems={"center"}
         height={"full"}
       >
-        <Image boxSize={"20"} src={logo} alt={logo} />
+        <Image boxSize={"20"} src={logo} alt={logo} cursor={"pointer"} />
         <HStack>
           <HStack mr={"10px"}>
             <Avatar
@@ -37,15 +37,29 @@ const NavBar = () => {
             ></Avatar>
             <Text color={"whiteAlpha.800"}>{currentUser.displayName}</Text>
           </HStack>
-          <PiSignOut
-            onClick={() => {
-              dispatch({ type: "RESET", payload: {} });
-              signOut(auth);
-            }}
-            fontSize="25px"
-            color="white"
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            width={"30px"}
+            height={"30px"}
+            borderRadius={"full"}
             cursor="pointer"
-          />
+            _hover={{
+              bg: "whiteAlpha.300",
+              transitionDuration: "400ms",
+            }}
+          >
+            <PiSignOut
+              onClick={() => {
+                dispatch({ type: "RESET", payload: {} });
+                signOut(auth);
+              }}
+              fontSize="25px"
+              color="white"
+            />
+          </Box>
         </HStack>
       </HStack>
       <hr></hr>
