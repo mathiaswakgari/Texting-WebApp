@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Avatar, Box, HStack, Text, Image, Spinner } from "@chakra-ui/react";
-import { Message } from "./ChatPanel";
+import { Message } from "../hooks/useChatPanel";
 
 interface Props {
   message: Message;
@@ -48,7 +48,7 @@ const ImageMessageCard = ({ message }: Props) => {
           borderRadius={"10px 10px 0 0px"}
         />
         {message.text && (
-          <Text fontWeight={"normal"} px={2}>
+          <Text fontWeight={"normal"} px={2} fontSize={"sm"}>
             {message.text}
           </Text>
         )}

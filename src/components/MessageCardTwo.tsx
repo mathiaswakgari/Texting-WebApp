@@ -1,5 +1,5 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
-import { Message } from "./ChatPanel";
+import { Message } from "../hooks/useChatPanel";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 
@@ -19,8 +19,11 @@ const MessageCardTwo = ({ message }: Props) => {
         borderRadius={"10px 0px 10px 10px"}
         ml={2}
         maxWidth={"full"}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
       >
-        <Text fontWeight={"normal"} px={2}>
+        <Text fontWeight={"normal"} px={2} fontSize={"sm"}>
           {message.text}
         </Text>
       </Box>
