@@ -1,14 +1,26 @@
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import LoginForm from "./LoginForm";
 import { Link } from "react-router-dom";
+import bgImage from "../assets/background.jpg";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
   const { error, isLogging, loginUser } = useLogin();
   return (
-    <Box height={"100vh"} width={"100vw"} bg={"gray.600"}>
+    <Box
+      height={"100vh"}
+      width={"100vw"}
+      bgImage={bgImage}
+      backgroundSize={"cover"}
+    >
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
-        <Box height={"600px"} width={"500px"} bg={"white"} borderRadius={10}>
+        <Box
+          height={"600px"}
+          width={"500px"}
+          bg={"blackAlpha.900"}
+          borderRadius={10}
+          color={"whiteAlpha.700"}
+        >
           <VStack
             height={"full"}
             width={"full"}
