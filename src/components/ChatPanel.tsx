@@ -48,16 +48,59 @@ const ChatPanel = () => {
             bg={"whiteAlpha.100"}
             color={"whiteAlpha.900"}
           >
-            <AiOutlineArrowLeft
-              onClick={() => {
-                setMessages([]);
-                dispatch({ type: "RESET", payload: {} });
+            <Box
+              borderRadius={"full"}
+              width={"25px"}
+              height={"25px"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              _hover={{
+                bg: "whiteAlpha.300",
               }}
-            />
+              cursor="pointer"
+              transitionDuration={"400ms"}
+            >
+              <AiOutlineArrowLeft
+                onClick={() => {
+                  setMessages([]);
+                  dispatch({ type: "RESET", payload: {} });
+                }}
+              />
+            </Box>
+
             <Text>{fullName}</Text>
             <HStack>
-              <AiOutlineVideoCameraAdd />
-              <BsThreeDots />
+              <Box
+                borderRadius={"full"}
+                width={"25px"}
+                height={"25px"}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                _hover={{
+                  bg: "whiteAlpha.300",
+                }}
+                cursor="pointer"
+                transitionDuration={"400ms"}
+              >
+                <AiOutlineVideoCameraAdd />
+              </Box>
+              <Box
+                borderRadius={"full"}
+                width={"25px"}
+                height={"25px"}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                _hover={{
+                  bg: "whiteAlpha.300",
+                }}
+                cursor="pointer"
+                transitionDuration={"400ms"}
+              >
+                <BsThreeDots />
+              </Box>
             </HStack>
           </HStack>
 
