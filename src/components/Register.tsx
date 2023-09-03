@@ -31,9 +31,12 @@ const Register = () => {
               <Heading textAlign={"center"}>Register</Heading>
               <Text fontSize={"xl"}>Your space to be social.</Text>
             </Box>
+            <Box></Box>
             <RegisterForm
               onSubmit={(data) => {
                 registerUser(data);
+                if (Object.keys(data.file).length !== 0) {
+                }
               }}
               isRegistering={isRegistering}
             />

@@ -18,7 +18,7 @@ import {
 } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "../hooks/useLogin";
+import { User } from "../hooks/useRegister";
 import { useState } from "react";
 
 interface Props {
