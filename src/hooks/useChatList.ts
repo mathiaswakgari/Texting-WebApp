@@ -1,5 +1,5 @@
 import { Timestamp, doc, onSnapshot } from "firebase/firestore";
-import { User } from "./useRegister";
+import { User } from "./useSideBar";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";

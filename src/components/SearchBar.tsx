@@ -9,7 +9,7 @@ const SearchBar = ({ onChange }: Props) => {
     <Box color={"white"} px={1} w={"full"} borderRadius={"3xl"} marginTop={5}>
       <InputGroup>
         <InputRightElement marginTop={"5px"} marginRight={3}>
-          <BsSearch color="white" fontSize="20px" />
+          <BsSearch color="white" fontSize={{ base: "10px", md: "20px" }} />
         </InputRightElement>
         <Input
           bg={"whiteAlpha.200"}
@@ -17,6 +17,10 @@ const SearchBar = ({ onChange }: Props) => {
           type="text"
           height={"50px"}
           borderRadius={"3xl"}
+          fontSize={{
+            base: "sm",
+            md: "lg",
+          }}
           placeholder="Search here..."
           _placeholder={{
             color: "whiteAlpha.700",

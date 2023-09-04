@@ -1,6 +1,6 @@
 import { Avatar, Box, HStack, VStack, Text } from "@chakra-ui/react";
-import { ChatInfo } from "./ChatList";
-import { User } from "./SideBar";
+import { ChatInfo } from "../hooks/useChatList";
+import { User } from "../hooks/useSideBar";
 
 interface Props {
   data: ChatInfo;
@@ -23,13 +23,20 @@ const UserCard = ({ data, onClick }: Props) => {
       onClick={() => onClick(userInfo)}
     >
       <Box pl={1}>
-        <Avatar src={userInfo.photoURL} name={userInfo.fullName}></Avatar>
+        <Avatar
+          size={{
+            base: "sm",
+            md: "md",
+          }}
+          src={userInfo.photoURL}
+          name={userInfo.fullName}
+        ></Avatar>
       </Box>
       <VStack ml={2} w={"full"} alignItems={"start"} spacing={0}>
-        <Text fontSize={"lg"} color={"gray.100"}>
+        <Text fontSize={{ base: "sm", md: "lg" }} color={"gray.100"}>
           {userInfo.fullName}
         </Text>
-        <Text fontSize={"sm"} color={"gray.300"}>
+        <Text fontSize={{ base: "xs", md: "sm" }} color={"gray.300"}>
           {lastMessage?.message && lastMessage.message}
         </Text>
       </VStack>

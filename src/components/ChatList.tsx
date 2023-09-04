@@ -1,6 +1,6 @@
 import { Spinner, VStack } from "@chakra-ui/react";
 import UserCard from "./UserCard";
-import { User } from "./SideBar";
+import { User } from "../hooks/useSideBar";
 import useChatList, { ChatInfo } from "../hooks/useChatList";
 
 const ChatList = () => {
