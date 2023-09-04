@@ -54,8 +54,16 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
-        <Box w={"96"}>
-          <FormLabel htmlFor="fullname">Fullname</FormLabel>
+        <Box maxW={{ md: "96" }}>
+          <FormLabel
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            htmlFor="fullname"
+          >
+            Fullname
+          </FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineUser />
@@ -71,17 +79,43 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   fullname: e.currentTarget.value,
                 });
               }}
+              fontSize={{
+                base: "xs",
+                md: "md",
+              }}
               _placeholder={{
                 color: "whiteAlpha.600",
               }}
             />
           </InputGroup>
           {errors?.fullname && (
-            <Text color={"tomato"}>{errors.fullname.message}</Text>
+            <VStack>
+              <Text
+                w={{
+                  base: "60",
+                  md: "96",
+                }}
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+                color={"tomato"}
+              >
+                {errors.fullname.message}
+              </Text>
+            </VStack>
           )}
         </Box>
-        <Box w={"96"}>
-          <FormLabel htmlFor="email">Email</FormLabel>
+        <Box w={{ md: "96" }}>
+          <FormLabel
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            htmlFor="email"
+          >
+            Email
+          </FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineMail />
@@ -97,17 +131,43 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   email: e.currentTarget.value,
                 })
               }
+              fontSize={{
+                base: "xs",
+                md: "md",
+              }}
               _placeholder={{
                 color: "whiteAlpha.600",
               }}
             />
           </InputGroup>
           {errors?.email && (
-            <Text color={"tomato"}>{errors.email.message}</Text>
+            <VStack>
+              <Text
+                w={{
+                  base: "60",
+                  md: "96",
+                }}
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+                color={"tomato"}
+              >
+                {errors.email.message}
+              </Text>
+            </VStack>
           )}
         </Box>
-        <Box w={"96"}>
-          <FormLabel htmlFor="password">Password</FormLabel>
+        <Box w={{ md: "96" }}>
+          <FormLabel
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            htmlFor="password"
+          >
+            Password
+          </FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineLock />
@@ -123,17 +183,42 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
                   password: e.currentTarget.value,
                 })
               }
+              fontSize={{
+                base: "xs",
+                md: "md",
+              }}
               _placeholder={{
                 color: "whiteAlpha.600",
               }}
             />
           </InputGroup>
           {errors?.password && (
-            <Text color={"tomato"}>{errors.password.message}</Text>
+            <VStack>
+              <Text
+                w={{
+                  base: "60",
+                  md: "96",
+                }}
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+                color={"tomato"}
+              >
+                {errors.password.message}
+              </Text>
+            </VStack>
           )}
         </Box>
-        <Box alignSelf={"start"}>
-          <FormLabel htmlFor="file" cursor={"pointer"}>
+        <Box alignSelf={{ base: "center", md: "start" }} w={{ md: "96" }}>
+          <FormLabel
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            htmlFor="file"
+            cursor={"pointer"}
+          >
             <HStack>
               <AiOutlineFileImage fontSize={"30px"} />
               <Text fontWeight={"medium"}>Choose a Profile Picture</Text>
@@ -159,7 +244,11 @@ const RegisterForm = ({ onSubmit, isRegistering }: Props) => {
           <Button
             type="submit"
             colorScheme="green"
-            w={"96"}
+            w={{ md: "96" }}
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
             isLoading={isRegistering}
           >
             Register

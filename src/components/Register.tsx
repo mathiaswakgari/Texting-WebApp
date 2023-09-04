@@ -16,9 +16,9 @@ const Register = () => {
     >
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
         <Box
-          minHeight={"600px"}
-          width={"500px"}
+          width={{ base: "350px", md: "500px" }}
           bg={"blackAlpha.900"}
+          paddingY={5}
           borderRadius={10}
           color={"whiteAlpha.800"}
         >
@@ -28,8 +28,18 @@ const Register = () => {
             justifyContent={"space-evenly"}
           >
             <Box>
-              <Heading textAlign={"center"}>Register</Heading>
-              <Text fontSize={"xl"}>Your space to be social.</Text>
+              <Heading
+                textAlign={"center"}
+                fontSize={{
+                  base: "2xl",
+                  md: "3xl",
+                }}
+              >
+                Register
+              </Heading>
+              <Text fontSize={{ base: "md", md: "xl" }}>
+                Your space to be social.
+              </Text>
             </Box>
             <Box></Box>
             <RegisterForm
@@ -41,12 +51,22 @@ const Register = () => {
               isRegistering={isRegistering}
             />
             {error && (
-              <Box borderRadius={3} bg={"tomato"} w={"96"} textAlign={"center"}>
+              <Box
+                borderRadius={3}
+                bg={"tomato"}
+                w={{ md: "96" }}
+                textAlign={"center"}
+              >
                 <Text color={"white"}>{error}</Text>
               </Box>
             )}
             <Box>
-              <Text>
+              <Text
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+              >
                 Already have an account?{" "}
                 <Link to="/login">
                   <Text fontWeight={"semibold"} as={"u"}>
