@@ -33,7 +33,7 @@ const ChatPanel = () => {
         <Box w={"full"} height={"100vh"}>
           <Box h={"50px"} w={"full"}></Box>
           <VStack h={"calc(100vh - 50px)"} justifyContent={"center"}>
-            <Text fontSize={"xl"} color={"white"}>
+            <Text fontSize={{ md: "xl", base: "lg" }} color={"white"}>
               Select a chat.
             </Text>
           </VStack>
@@ -69,7 +69,7 @@ const ChatPanel = () => {
               />
             </Box>
 
-            <Text>{fullName}</Text>
+            <Text fontSize={{ base: "sm", md: "md" }}>{fullName}</Text>
             <HStack>
               <Box
                 borderRadius={"full"}
@@ -105,7 +105,7 @@ const ChatPanel = () => {
           </HStack>
 
           <Box
-            overflow={"auto"}
+            overflowY={"auto"}
             height={
               selectedFile
                 ? "calc(100vh - 64px - 50px - 200px)"

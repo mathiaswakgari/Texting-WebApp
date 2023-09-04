@@ -26,14 +26,18 @@ const ChatInput = ({
 }: Props) => {
   return (
     <>
-      <InputGroup borderRadius={"3xl"}>
+      <InputGroup borderRadius={{ base: "lg", md: "3xl" }}>
         <Textarea
           marginTop={1}
           placeholder="message..."
-          borderRadius={"3xl"}
+          borderRadius={{ base: "2xl", md: "3xl" }}
           maxW={"calc(100% - 150px)"}
-          focusBorderColor="lime"
-          bg={"white"}
+          focusBorderColor="none"
+          bg={"whiteAlpha.800"}
+          fontSize={{
+            base: "xs",
+            md: "md",
+          }}
           size={"sm"}
           border={"none"}
           height={"40px"}

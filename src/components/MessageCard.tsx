@@ -11,7 +11,7 @@ const MessageCard = ({ message }: Props) => {
   const ref = useRef<null | HTMLDivElement>(null);
   const {
     data: {
-      userInfo: { fullName, photoURL, uid },
+      userInfo: { fullName, photoURL },
     },
   } = useContext(ChatContext);
 
@@ -19,7 +19,7 @@ const MessageCard = ({ message }: Props) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
   return (
-    <HStack ref={ref} w={"full"} minH={"70px"} marginY={3}>
+    <HStack ref={ref} w={"full"} minH={"70px"} marginY={0}>
       <Box pl={1}>
         <Avatar src={photoURL} name={fullName} size={"sm"}></Avatar>
       </Box>

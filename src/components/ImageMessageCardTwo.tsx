@@ -27,7 +27,7 @@ const ImageMessageCardTwo = ({ message }: Props) => {
       <Box
         bg={"whiteAlpha.300"}
         color={"white"}
-        w={"96"}
+        w={{ base: "48", md: "96" }}
         borderRadius={"lg"}
         ml={2}
       >

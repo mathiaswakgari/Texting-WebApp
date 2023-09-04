@@ -10,7 +10,7 @@ interface Props {
 const MessageCardTwo = ({ message }: Props) => {
   const currentUser = useContext(AuthContext);
   return (
-    <HStack w={"full"} minH={"70px"} marginY={3} justifyContent={"end"}>
+    <HStack w={"full"} minH={"70px"} marginY={0} justifyContent={"end"}>
       <Box
         minH={"30px"}
         maxW={"96"}

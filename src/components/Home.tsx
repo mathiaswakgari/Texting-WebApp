@@ -6,6 +6,7 @@ import ChatPanel from "./ChatPanel";
 const Home = () => {
   return (
     <Grid
+      overflowX={"hidden"}
       templateAreas={`"navbar chatpanel"
                   "sidebar chatpanel"
                   `}
