@@ -41,8 +41,16 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <VStack>
-        <Box w={"96"}>
-          <FormLabel htmlFor="email">Email</FormLabel>
+        <Box w={{ md: "96" }}>
+          <FormLabel
+            htmlFor="email"
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+          >
+            Email
+          </FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineUser />
@@ -50,7 +58,7 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
             <Input
               {...register("email")}
               id="email"
-              type="email"
+              type="text"
               placeholder="Enter your email"
               onChange={(e) =>
                 setLoginCredential({
@@ -58,17 +66,43 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
                   email: e.currentTarget.value,
                 })
               }
+              fontSize={{
+                base: "xs",
+                md: "md",
+              }}
               _placeholder={{
                 color: "whiteAlpha.600",
               }}
             />
           </InputGroup>
           {errors?.email && (
-            <Text color={"tomato"}>{errors.email.message}</Text>
+            <VStack>
+              <Text
+                w={{
+                  base: "60",
+                  md: "96",
+                }}
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+                color={"tomato"}
+              >
+                {errors.email.message}
+              </Text>
+            </VStack>
           )}
         </Box>
-        <Box w={"96"}>
-          <FormLabel htmlFor="password">Password</FormLabel>
+        <Box w={{ md: "96" }}>
+          <FormLabel
+            htmlFor="password"
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+          >
+            Password
+          </FormLabel>
           <InputGroup>
             <InputLeftElement>
               <AiOutlineLock />
@@ -84,13 +118,31 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
                   password: e.currentTarget.value,
                 })
               }
+              fontSize={{
+                base: "xs",
+                md: "md",
+              }}
               _placeholder={{
                 color: "whiteAlpha.600",
               }}
             />
           </InputGroup>
           {errors?.password && (
-            <Text color={"tomato"}>{errors.password.message}</Text>
+            <VStack>
+              <Text
+                w={{
+                  base: "60",
+                  md: "96",
+                }}
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+                color={"tomato"}
+              >
+                {errors.password.message}
+              </Text>
+            </VStack>
           )}
         </Box>
         <Box mt={5}>
@@ -98,7 +150,11 @@ const LoginForm = ({ onSubmit, isLogging }: Props) => {
             isLoading={isLogging}
             type="submit"
             colorScheme="green"
-            w={"96"}
+            w={{ md: "96" }}
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
           >
             Login
           </Button>

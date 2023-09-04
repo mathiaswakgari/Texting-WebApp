@@ -15,8 +15,8 @@ const Login = () => {
     >
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
         <Box
-          height={"600px"}
-          width={"500px"}
+          height={{ base: "400px", md: "600px" }}
+          width={{ base: "350px", md: "500px" }}
           bg={"blackAlpha.900"}
           borderRadius={10}
           color={"whiteAlpha.800"}
@@ -27,8 +27,18 @@ const Login = () => {
             justifyContent={"space-evenly"}
           >
             <Box>
-              <Heading textAlign={"center"}>Login</Heading>
-              <Text fontSize={"xl"}>Your space to be social.</Text>
+              <Heading
+                textAlign={"center"}
+                fontSize={{
+                  base: "2xl",
+                  md: "3xl",
+                }}
+              >
+                Login
+              </Heading>
+              <Text fontSize={{ base: "md", md: "xl" }}>
+                Your space to be social.
+              </Text>
             </Box>
             <LoginForm
               onSubmit={(data) => {
@@ -37,12 +47,22 @@ const Login = () => {
               isLogging={isLogging}
             />
             {error && (
-              <Box borderRadius={3} bg={"tomato"} w={"96"} textAlign={"center"}>
+              <Box
+                borderRadius={3}
+                bg={"tomato"}
+                w={{ md: "96" }}
+                textAlign={"center"}
+              >
                 <Text color={"white"}>{error}</Text>
               </Box>
             )}
             <Box>
-              <Text>
+              <Text
+                fontSize={{
+                  base: "sm",
+                  md: "md",
+                }}
+              >
                 Don't have an account yet?{" "}
                 <Link to={"/register"}>
                   <Text as={"u"} fontWeight={"semibold"}>
