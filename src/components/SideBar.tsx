@@ -15,7 +15,7 @@ const SideBar = () => {
 
   return (
     <Box height={"calc(100vh - 50px )"}>
-      <VStack w="full" alignItems={"center"}>
+      <VStack w={"full"} alignItems={"center"}>
         <SearchBar
           onChange={(label) => {
             setSearchLabel(label);
