@@ -32,7 +32,7 @@ const ChatInput = ({
           marginTop={1}
           placeholder="message..."
           borderRadius={{ base: "2xl", md: "3xl" }}
-          w={{ base: "40", md: "calc(100% - 150px)" }}
+          w={{ base: "40", sm: "calc(100% - 150px)" }}
           focusBorderColor="none"
           bg={"whiteAlpha.800"}
           fontSize={{
@@ -90,7 +90,7 @@ const ChatInput = ({
                 }}
                 display={{
                   base: "none",
-                  md: "block",
+                  sm: "block",
                 }}
               >
                 Send
