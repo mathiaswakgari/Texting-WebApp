@@ -16,7 +16,7 @@ const Login = () => {
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
         <Box
           paddingY={5}
-          width={{ base: "350px", md: "500px" }}
+          width={{ base: "275px", sm: "350px", md: "500px" }}
           bg={"blackAlpha.900"}
           borderRadius={10}
           color={"whiteAlpha.800"}

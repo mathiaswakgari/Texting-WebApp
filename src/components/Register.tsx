@@ -16,7 +16,7 @@ const Register = () => {
     >
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
         <Box
-          width={{ base: "350px", md: "500px" }}
+          width={{ base: "275px", sm: "350px", md: "500px" }}
           bg={"blackAlpha.900"}
           paddingY={5}
           borderRadius={10}
