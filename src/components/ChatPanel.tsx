@@ -50,8 +50,8 @@ const ChatPanel = () => {
           >
             <Box
               borderRadius={"full"}
-              width={"25px"}
-              height={"25px"}
+              width={{ base: "15px", md: "25px" }}
+              height={{ base: "15px", md: "25px" }}
               display={"flex"}
               justifyContent={"center"}
               alignItems={"center"}
@@ -69,12 +69,12 @@ const ChatPanel = () => {
               />
             </Box>
 
-            <Text fontSize={{ base: "sm", md: "md" }}>{fullName}</Text>
+            <Text fontSize={{ base: "xs", md: "md" }}>{fullName}</Text>
             <HStack>
               <Box
                 borderRadius={"full"}
-                width={"25px"}
-                height={"25px"}
+                width={{ base: "15px", md: "25px" }}
+                height={{ base: "15px", md: "25px" }}
                 display={"flex"}
                 justifyContent={"center"}
                 alignItems={"center"}
@@ -88,8 +88,8 @@ const ChatPanel = () => {
               </Box>
               <Box
                 borderRadius={"full"}
-                width={"25px"}
-                height={"25px"}
+                width={{ base: "15px", md: "25px" }}
+                height={{ base: "15px", md: "25px" }}
                 display={"flex"}
                 justifyContent={"center"}
                 alignItems={"center"}
@@ -146,7 +146,7 @@ const ChatPanel = () => {
                 <Box>
                   <AiOutlineCloseCircle
                     color="white"
-                    fontSize="30px"
+                    fontSize={{ base: "20px", md: "30px" }}
                     cursor="pointer"
                     onClick={() => {
                       setFile(undefined);

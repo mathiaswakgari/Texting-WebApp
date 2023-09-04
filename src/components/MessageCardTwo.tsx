@@ -18,16 +18,23 @@ const MessageCardTwo = ({ message }: Props) => {
         color={"white"}
         borderRadius={"10px 0px 10px 10px"}
         ml={2}
+        mr={1}
         maxWidth={"full"}
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}
       >
-        <Text fontWeight={"normal"} px={2} fontSize={"sm"}>
+        <Text fontWeight={"normal"} px={2} fontSize={{ md: "sm", base: "xs" }}>
           {message.text}
         </Text>
       </Box>
-      <Box pr={1}>
+      <Box
+        pr={1}
+        display={{
+          base: "none",
+          md: "block",
+        }}
+      >
         <Avatar
           size={"sm"}
           src={currentUser.photoURL!}

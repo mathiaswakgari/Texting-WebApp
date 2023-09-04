@@ -6,6 +6,7 @@ import {
   InputGroup,
   InputRightElement,
   Textarea,
+  Text,
 } from "@chakra-ui/react";
 
 import { BiImage } from "react-icons/bi";
@@ -31,14 +32,14 @@ const ChatInput = ({
           marginTop={1}
           placeholder="message..."
           borderRadius={{ base: "2xl", md: "3xl" }}
-          maxW={"calc(100% - 150px)"}
+          w={{ base: "40", md: "calc(100% - 150px)" }}
           focusBorderColor="none"
           bg={"whiteAlpha.800"}
           fontSize={{
             base: "xs",
             md: "md",
           }}
-          size={"sm"}
+          size={{ base: "xs", md: "sm" }}
           border={"none"}
           height={"40px"}
           resize={"none"}
@@ -67,7 +68,7 @@ const ChatInput = ({
 
             <FormLabel htmlFor="file">
               <BiImage
-                fontSize={"30px"}
+                fontSize={{ md: "30px", base: "20px" }}
                 style={{
                   marginTop: "7px",
                 }}
@@ -76,13 +77,24 @@ const ChatInput = ({
             </FormLabel>
             <Button
               colorScheme={"green"}
-              borderRadius={"lg"}
-              mr={2}
-              size={"sm"}
+              borderRadius="lg"
+              mr={{ md: 2, base: 1 }}
+              size={{ base: "xs", md: "sm" }}
               onClick={onSend}
               rightIcon={<BsFillSendFill />}
             >
-              Send
+              <Text
+                fontSize={{
+                  base: "xs",
+                  md: "sm",
+                }}
+                display={{
+                  base: "none",
+                  md: "block",
+                }}
+              >
+                Send
+              </Text>
             </Button>
           </HStack>
         </InputRightElement>

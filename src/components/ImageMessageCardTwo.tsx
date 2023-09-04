@@ -27,9 +27,9 @@ const ImageMessageCardTwo = ({ message }: Props) => {
       <Box
         bg={"whiteAlpha.300"}
         color={"white"}
-        w={{ base: "48", md: "96" }}
+        w={{ base: "24", md: "52", lg: "72", xl: "96" }}
         borderRadius={"lg"}
-        ml={2}
+        ml={{ base: 0, md: 2 }}
       >
         <Image
           fallback={
@@ -50,7 +50,7 @@ const ImageMessageCardTwo = ({ message }: Props) => {
           borderRadius={"10px 10px 0 0px"}
         />
         {message.text && (
-          <Text px={2} fontSize={"sm"}>
+          <Text px={2} fontSize={{ base: "xs", md: "sm" }}>
             {message.text}
           </Text>
         )}

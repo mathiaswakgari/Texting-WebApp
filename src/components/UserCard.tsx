@@ -33,10 +33,20 @@ const UserCard = ({ data, onClick }: Props) => {
         ></Avatar>
       </Box>
       <VStack ml={2} w={"full"} alignItems={"start"} spacing={0}>
-        <Text fontSize={{ base: "sm", md: "lg" }} color={"gray.100"}>
+        <Text
+          noOfLines={1}
+          textOverflow={"ellipsis"}
+          fontSize={{ base: "sm", md: "lg" }}
+          color={"gray.100"}
+        >
           {userInfo.fullName}
         </Text>
-        <Text fontSize={{ base: "xs", md: "sm" }} color={"gray.300"}>
+        <Text
+          noOfLines={1}
+          textOverflow={"ellipsis"}
+          fontSize={{ base: "xs", md: "sm" }}
+          color={"gray.300"}
+        >
           {lastMessage?.message && lastMessage.message}
         </Text>
       </VStack>

@@ -27,15 +27,15 @@ const MessageCard = ({ message }: Props) => {
         bg={"whiteAlpha.300"}
         color={"white"}
         minH={"30px"}
-        maxW={"96"}
+        maxW={{ md: "96", base: "52" }}
         borderRadius={"0 10px 10px 10px"}
-        ml={2}
+        ml={{ base: 0, md: 2 }}
         maxWidth={"full"}
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}
       >
-        <Text fontWeight={"normal"} px={2} fontSize={"sm"}>
+        <Text fontWeight={"normal"} px={2} fontSize={{ md: "sm", base: "xs" }}>
           {message.text}
         </Text>
       </Box>

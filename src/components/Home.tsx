@@ -10,7 +10,10 @@ const Home = () => {
       templateAreas={`"navbar chatpanel"
                   "sidebar chatpanel"
                   `}
-      gridTemplateColumns={{ base: "200px 1fr", md: "400px 1fr" }}
+      gridTemplateColumns={{
+        base: "175px 1fr",
+        md: "400px 1fr",
+      }}
       fontWeight="bold"
       bg={"blackAlpha.900"}
       height={"100vh"}

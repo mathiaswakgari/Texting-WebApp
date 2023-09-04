@@ -32,7 +32,11 @@ const NavBar = () => {
               name={currentUser?.displayName!}
               src={currentUser?.photoURL!}
             ></Avatar>
-            <Text fontSize={{ base: "xs", md: "md" }} color={"whiteAlpha.800"}>
+            <Text
+              noOfLines={1}
+              fontSize={{ base: "xs", md: "md" }}
+              color={"whiteAlpha.800"}
+            >
               {currentUser.displayName}
             </Text>
           </HStack>
