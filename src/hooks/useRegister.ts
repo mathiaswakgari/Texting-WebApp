@@ -4,7 +4,6 @@ import { auth, createUser, firestore, storage } from "../services/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
 
 export interface User {
   fullname: string;
@@ -32,8 +31,8 @@ const useRegister = () => {
             );
             uploadTask.on(
               "state_changed",
-              (snapshot) => {},
-              (error) => {
+              () => {},
+              () => {
                 setIsRegistering(false);
               },
               () => {
@@ -69,7 +68,7 @@ const useRegister = () => {
           setIsRegistering(false);
           navigate("/login");
         })
-        .catch((e: FirebaseError) => {
+        .catch(() => {
           setIsRegistering(false);
           setError("An unknown error occured. Try again");
         });

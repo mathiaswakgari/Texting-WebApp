@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: Props) => {
       setCurrentUser(currentUser);
     });
 
-    // return () => controller.abort();
+    return () => controller.abort();
   }, []);
 
   return (

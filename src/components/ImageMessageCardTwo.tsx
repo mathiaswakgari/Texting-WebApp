@@ -12,7 +12,7 @@ const ImageMessageCardTwo = ({ message }: Props) => {
   const ref = useRef<null | HTMLDivElement>(null);
   const {
     data: {
-      userInfo: { fullName, photoURL, uid },
+      userInfo: { fullName, photoURL },
     },
   } = useContext(ChatContext);
 

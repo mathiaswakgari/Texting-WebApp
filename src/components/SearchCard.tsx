@@ -1,5 +1,5 @@
 import { Avatar, Box, HStack, VStack, Text } from "@chakra-ui/react";
-import { User } from "./SideBar";
+import { User } from "../hooks/useSideBar";
 
 interface Props {
   user: User;

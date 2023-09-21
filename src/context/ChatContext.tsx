@@ -1,24 +1,11 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { auth } from "../services/firebase";
-import { ChatInfo } from "../components/ChatList";
+import { ReactNode, createContext, useContext, useReducer } from "react";
+
 import { AuthContext } from "./AuthContext";
-import { User } from "../components/SideBar";
 
 type Props = {
   children: ReactNode;
 };
 
-interface Action {
-  type: ActionKind;
-  payload: User;
-}
 enum ActionKind {
   CHANGE_USER = "CHANGE_USER",
   RESET = "RESET",

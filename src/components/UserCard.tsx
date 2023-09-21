@@ -8,7 +8,7 @@ interface Props {
 }
 
 const UserCard = ({ data, onClick }: Props) => {
-  const { date, userInfo, lastMessage } = data;
+  const { userInfo, lastMessage } = data;
 
   return (
     <HStack

@@ -20,7 +20,7 @@ const ChatList = () => {
         <Spinner size={"lg"}></Spinner>
       ) : (
         Object.entries(chats)
-          .sort((a, b) => b[1]["date"] - a[1]["date"])
+          .sort((a, b) => (b as any[1]["date"]) - (a as any[1]["date"]))
           .map((chat) => (
             <UserCard
               onClick={handleSelect}

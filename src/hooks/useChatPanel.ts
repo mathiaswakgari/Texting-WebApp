@@ -54,8 +54,8 @@ const useChatPanel = () => {
 
       uploadTask.on(
         "state_changed",
-        (snapshot) => {},
-        (error) => {},
+        () => {},
+        () => {},
 
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
